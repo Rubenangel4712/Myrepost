@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+<div id="micabezera" onload="cabezera()"></div>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/" style="color: black">Easiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/contact">Contact</a>
+                    </li>
+
+                    <!--
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/user">User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/client">Client</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/admin">Admin</a>
+                    </li>
+                    -->
+
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Client
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-primary">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--body-->
+
+    <div class="table-responsive">
+        <table class="table align-top" border="1">
+            <tbody>
+            <tr>
+                <td width="30%">
+                    <div id="mimenu" onload="menu()">
+
+                    </div>
+                </td>
+                <td width="70%">
+
+
+                    <div class="container py-5">
+
+                        <h3>Alfabetos y Lenguajes.</h3><br>
+                        <h4>Definiciones.</h4>
+                        <b>Alfabeto:</b> un conjunto no vacío y finito de símbolos. <br>
+                        ∑ : representa un alfabeto.
+                        σ: un elemento del alfabeto. σ ϵ ∑.
+                        Por ejemplo, el alfabeto de los números naturales ∑ = {0, 1, 2, 3, 4 ,5 ,6 ,7 ,8, 9}. Si σ = 0 entonces σ ϵ ∑.
+                        Si ∑<sub>1</sub> y ∑<sub>2</sub> son alfabetos, entonces ∑<sub>1</sub> ∪ ∑<sub>2</sub> también es un alfabeto.
+                        Además, si ∑<sub>1</sub> ∩ ∑<sub>2</sub>,
+                        ∑<sub>1</sub> - ∑<sub>2</sub> y ∑<sub>2</sub> - ∑<sub>1</sub> son no vacíos, también son alfabetos.<br><br>
+                        <b>Palabra.</b> Una secuencia finita de símbolos en un determinado alfabeto. Para evitar la confusión con el
+                        lenguaje
+                        natural se usa más corrientemente la expresión cadena. Un programa en algún lenguaje con todos sus símbolos y
+                        caracteres especiales es una cadena. La cadena vacía Ɛ es una palabra sobre cualquier alfabeto.<br><br>
+                        <b>Lenguaje.</b> Es un conjunto de palabras. Por tanto, el conjunto {1, 12, 123, 1234, 12345, 123456} es un lenguaje
+                        sobre
+                        el alfabeto de los números naturales. De otra forma, el conjunto de palabras inglesas “correctas” es un lenguaje
+                        sobre el alfabeto inglés.
+                        <b>Lenguaje vacío:</b> el que no tiene ninguna cadena. El lenguaje vacío Ф es diferente al lenguaje que solo
+                        consta de la cadena vacía {Ɛ}.
+                        Si <i>ꙍ</i> es una cadena sobre ∑ y <i>L</i> es un lenguaje formado por algunas de las cadenas sobre ∑, entonces
+                        ꙍ está en <i>L</i> o, ꙍ<i> ϵ L.</i><br><br>
+                        <b>Ejemplo:</b> 121 ϵ {1, 12, 121, 1212, 12121}.<br><br>
+                        <b>Cerradura:</b> el lenguaje compuesto por todas las cadenas sobre el alfabeto ∑. Se denota por ∑*. Por ejemplo, si
+                        se tiene el alfabeto ∑ = {1} entonces ∑<sup>*</sup> = {1, 11, 111, 1111, …}. Para cualquier alfabeto ∑<sup>*</sup>
+                        es
+                        infinito, ya que los alfabetos son no vacíos.<br><br>
+                        <b>Operaciones con cadenas.</b> Si ꙍ es una cadena sobre cualquier alfabeto, su longitud se denota por |ꙍ|. |ꙍ| es
+                        el
+                        número de símbolos que tiene la cadena. Así, si ꙍ = 121, sobre el alfabeto ∑ ={1, 2}, entonces, |ꙍ| = 3. La cadena
+                        vacía Ɛ no tiene símbolos y, por, tanto | Ɛ| = 0.<br>
+                        Si ꙍ y <i>Z</i> son cadenas, la concatenación de ꙍ con <i>Z</i> es la cadena que se obtiene al añadir
+                        a la cadena ꙍ la palabra <i>Z</i>.<br>
+                        Por ejemplo, si ꙍ = “aprendo” y <i>Z</i> = “mucho”, la concatenación de ꙍ con <i>Z</i> expresada como ꙍZ o
+                        ꙍ<i>.Z</i> es ꙍ<i>Z</i> = “aprendomucho”. Obsérvese que |ꙍ<i>Z</i>| = |ꙍ| + |<i>Z</i>|. Además, |ꙍƐ| = |ꙍ|. Ɛ se
+                        comporta como la identidad de la
+                        concatenación.<br><br>
+                        <b>Potencia.</b> Potencia de una palabra sobre un alfabeto. Sea ꙍ una palabra y n ϵ <i>N</i>,
+                        ꙍ<sup>n</sup>=(Ɛ,si n=0 , ꙍꙍ<sup>(n-1)</sup>,si n>0)
+                        Así, si ꙍ = 122 sobre el alfabeto ∑ = {1,2}, se tendrá que:
+                        ꙍ<sup>0</sup> = Ɛ, ꙍ<sup>1</sup> = 122, ꙍ<sup>2</sup> = 122122, ꙍ<sup>3</sup> = 122122122 y así sucesivamente.
+                        ꙍ<sup>i</sup> es la potencia i-ésima de ꙍ.<br><br>
+                        <b>Igualdad.</b> Si ꙍ y <i>Z</i> son palabras, se dice que ꙍ es igual a <i>Z</i> si tienen la misma longitud con los
+                        mismos símbolos en igual posición. Se denota como ꙍ = <i>Z</i>.<br><br>
+                        <b>Prefijo y sufijo.</b> Si ꙍ y <i>x</i> son palabras, se dice que <i>x </i>es prefijo de ꙍ si para alguna cadena
+                        <i>y</i> se obtiene que ꙍ = <i>x</i>
+                        <i>y</i>. Por ejemplo, si ꙍ es la cadena 121, entonces la cadena <i>x</i> = 12 es un prefijo de ꙍ e <i>y</i> = 1. Si
+                        se considere <i>y</i> = Ɛ,
+                        entonces para ꙍ = <i>x</i> y se tendrá que ꙍ = <i>x</i> y toda la palabra podrá considerarse prefijo de sí misma. Ɛ
+                        es prefijo de
+                        cualquier palabra.<br><br>
+                        <b>Subcadena.</b> Una cadena ꙍ es una subcadena o subpalabra de otra cadena Z si existen las cadenas x e y para las
+                        cuales
+                        <i>Z = x</i> ꙍ <i>y</i>.<br><br>
+                        <b>Inversa o transpuesta.</b> La inversa o transpuesta de una palabra ꙍ es la imagen refleja de ꙍ. Por ejemplo, si ꙍ
+                        =
+                        “able”, su inversa, denotada por ꙍ<sup>I</sup> es ꙍ<sup>I</sup> = “elba”. En general,
+                        ꙍ<sup>I</sup>=(ꙍ, si ꙍ=Ɛ; y<sup>I</sup>a, si ꙍ=a<i>y</i>) con a ϵ ∑ e <i>y</i> ϵ ∑*.<br>
+                        Por ejemplo, suponiendo que <i>x</i> = “able”, siguiendo la definición:
+                        x<sup>I</sup>= (able)<sup>I</sup>= (ble)<sup>I</sup>a = (le)<sup>I</sup>ba = (e)<sup>I</sup>lba =
+                        (Ɛ)<sup>I</sup>elba = elba<br>
+                        Considerando la concatenación de las palabras “ab” y “cd” que forman “abcd”, se sabe que (abcd)<sup>I</sup>=dcba.
+                        Obsérvese que dcba = (cd)<sup>I</sup>(ab)<sup>I</sup>. Así, si ꙍ e <i>y</i> son cadenas y <i>x</i> = ꙍ<i>y</i>,
+                        entonces
+                        x<sup>I</sup>=(ꙍ<i>y</i>)<sup>I</sup>= (<i>y</i>)<sup>I</sup> (ꙍ)<sup>I</sup>.
+                        La inversa se cancela a sí misma. ((abcd)<sup>I</sup>)<sup>I</sup>= (dcba)<sup>I</sup>=abcd. En general:
+                        ((x)<sup>I</sup>)<sup>I</sup>=x<br><br>
+
+                        <b>Operaciones con lenguajes.</b>
+                        Sean A y B lenguajes sobre un alfabeto. Se define el lenguaje concatenación de A y B como:
+                        A.B = {ꙍ.x | ꙍ ϵ A y x ϵ B}. Por tanto, A.B está formado por todas las cadenas que se forman concatenando cada
+                        cadena de A con todas las cadenas de B. Por ejemplo, si A = {casa} y B = {pájaro, perro}, entonces, A.B sería el
+                        lenguaje A.B = {casapájaro, casaperro}. A y B no necesariamente tienen que ser lenguajes sobre el mismo alfabeto.
+                        Si A es un lenguaje sobre ∑<sub>1</sub> y B es un lenguaje sobre ∑<sub>2</sub>, entonces A.B será un lenguaje sobre ∑<sub>1</sub> U ∑<sub>2</sub>.<br><br>
+                        <b>Identidad.</b> Así como para las palabras, si x es una palabra, x.Ɛ = x = Ɛ.x, para los lenguajes A.{Ɛ} = A = {Ɛ}.A.
+                        Para los lenguajes, la identidad es la palabra vacía {Ɛ}.<br><br>
+                        <b>Potencia.</b>
+                        A<sup>n</sup>=({Ɛ},si n=0; AA<sup>(n-1)</sup>, si n≥1). Por tanto, si A = {ab}, se tendrá que: A<sup>0</sup> = {Ɛ}, A<sup>1</sup> = {ab}, A<sup>2</sup> = {abab}, A<sup>3</sup> = {ababab} y así sucesivamente. Téngase
+                        en cuenta que Ø<sup>0</sup>= {Ɛ}.<br><br>
+                        <b>Unión, intersección y sublenguaje.</b>
+                        Si A, B son lenguajes sobre el alfabeto ∑, AUB = {x/ x ϵ A ó x ϵ B}, A∩B = {x/ x ϵ A y x ϵ B}.
+                        <b>Ejemplo.</b> ∑ = {0, 1}; A = { Ɛ , 0, 1, 10, 11}, B = { Ɛ, 1, 0110, 11010}, entonces: AUB = { Ɛ , 0, 1, 10, 11, 0110,
+                        11010} y A∩B = { Ɛ, 1}.<br><br>
+                        <b>Sublenguaje.</b> Si A, B son lenguajes sobre el alfabeto ∑, y si todas las cadenas de A son también cadenas de B,
+                        entonces se dice que A es un sublenguaje de B. En la notación de conjuntos A ⊆ B significa que A es un sublenguaje
+                        de B.
+                        Obsérvese que cualquier lenguaje <i>L</i> sobre el alfabeto ∑ es un sublenguaje de ∑*, es decir <i>L</i>⊆∑*.<br><br>
+                        <b>Igualdad.</b> Se dice que dos lenguajes A y B son iguales si contienen exactamente las mismas cadenas, es decir, son
+                        conjuntos iguales. Se denota con A = B.<br><br>
+                        <b>Complemento.</b> El complemento de un lenguaje A sobre el alfabeto ∑ es: Ā = ∑*- A. En general A(B – C) ≠ AB – AC.
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-group">
+
+    </div>
+</div>
+<!--body-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

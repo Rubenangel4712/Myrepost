@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Forma Normal de Chomsky (FNC)</strong></h1></div>
+    <div class="container py-5">
+        Una GIC G está en FNC si satisface:
+        <ol>
+            <li>G no tiene variables inútiles.</li>
+            <li>G no tiene producciones λ (excepto posiblemente S → λ ) .</li>
+            <li>Todas las producciones son de la forma: A → a (producciones simples) o de la forma A → BC (producciones
+                binarias). ABC
+                ∈ N y a ∈ ∑
+            </li>
+        </ol>
+
+
+
+        En particular, una gramática FNC no tiene producciones unitarias.<br><br>
+        <b>Procedimiento para obtener la FNC de una gramática dada.</b><br>
+        <ol>
+            <li>Eliminar las variables no terminables.</li>
+            <li>Eliminar las variables no alcanzables.</li>
+            <li>Eliminar las producciones λ (excepto S → λ, si existe).</li>
+            <li>Eliminar las producciones unitarias.</li>
+            <li>Las producciones de la forma <i>A → w</i> con <i></i>w ≥ 2 se substituyen con una nueva producción <i>T →
+                w</i> y las producciones con más de dos variables no terminales se substituyen con nuevas producciones
+                binarias.
+            </li>
+        </ol>
+        <br>
+        Ejemplo.
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>aB | bA</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>a | aS | bAA</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b | bS | aBB </i></td>
+            </tr>
+            </tbody>
+        </table><br>
+        Obsérvese que esta gramática ya se encuentra libre de anomalías. Esta gramática genera el lenguaje de las cadenas
+        que tienen el mismo número de <i>aes</i> que de <i>bes</i>.<br><br>
+        En esta gramática, las únicas producciones que se encuentran en FNC son las indicadas aquí con negrita:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>aB | bA</i></td>
+            </tr>
+            <tr>
+                <td><i><b>A</b></i></td>
+                <td><b>→</b></td>
+                <td><i><b>a</b> | aS | bAA</i></td>
+            </tr>
+            <tr>
+                <td><i><b>B</b></i></td>
+                <td><b>→</b></td>
+                <td><i><b>b</b> | bS | aBB </i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Las otras producciones tienen mezclados símbolos terminales con símbolos no terminales.
+        Para evitar esto se introducen nuevas producciones así:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>CB | DA </i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>a | CS | DAA</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b | DS | CBB</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i>a</i></td>
+            </tr>
+            <tr>
+                <td><i>D</i></td>
+                <td>→</td>
+                <td><i>b</i></td>
+            </tr>
+            </tbody>
+        </table><br>
+        Las producciones con más de dos símbolos no terminales se substituyen así:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>CB | DA </i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>a | CS | DE</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b | DS | CF</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i>a</i></td>
+            </tr>
+            <tr>
+                <td><i>D</i></td>
+                <td>→</td>
+                <td><i>b</i></td>
+            </tr>
+            <tr>
+                <td><i>E</i></td>
+                <td>→</td>
+                <td><i>AA</i></td>
+            </tr>
+            <tr>
+                <td><i>F</i></td>
+                <td>→</td>
+                <td><i>BB</i></td>
+            </tr>
+            </tbody>
+        </table><br>
+        Esta gramática ya se encuentra en la FNC.<br>
+        Ejemplo. Encontrar la FNC de la siguiente gramática:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>aBA | bA | a</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>ab | AbA </i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b</i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Solución:<br>
+        Se encuentran los terminales que ya están en esta forma:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>aBA | bA | <b>a</b></i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>ab | AbA </i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i><b>b</b></i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Se agregan nuevas producciones así:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>CBA | BA | a</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>CB | ABA</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i><b>a</b></i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Eliminando los triples no terminales.
+
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>CD | BA | a</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>CB | AD</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>b</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i>a</i></td>
+            </tr>
+            <tr>
+                <td><i>D</i></td>
+                <td>→</td>
+                <td><i>BA</i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Ejemplo. Encontrar una GIC en FNC equivalente a la siguiente gramática:
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>AB | aBC | SBS</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>aA | C</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>bbB | b</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i>cC | λ</i></td>
+            </tr>
+            </tbody>
+        </table><br>
+
+        Procedimiento.<br>
+        <ol>
+            <li>Eliminar los símbolos no terminables.</li>
+            <li>Eliminar los símbolos no alcanzables.</li>
+            <li>Eliminar las producciones λ (excepto S → λ si existe).</li>
+            <li>Eliminar las producciones unitarias.</li>
+            <li>Substituir producciones combinadas introduciendo nuevas producciones de la forma <i>A → a</i>.</li>
+            <li>Eliminar producciones con más de dos no terminables introduciendo nuevas producciones de la forma A → BC.
+            </li>
+        </ol>
+
+        Solución.
+        <ol>
+            <li>Eliminar los símbolos no terminables.<br>
+                <pre>
+    TERM1 = { S}
+    TERM2 = { S,B,C,A }
+    Símbolos no terminables: { }
+</pre>
+            </li>
+            <li>Eliminar los símbolos no alcanzables.<br>
+                <pre>
+    Símbolos alcanzables:
+    ALC1: {S}
+    ALC2: {S, A}
+    ALC3: {S, A, B}
+    LC4: {S, A, B, C}
+    Símbolos no alcanzables: { }
+</pre>
+            </li>
+            <li>Eliminar las producciones λ (excepto S → λ si existe).<br><br>
+                <pre>
+    Variables anulables:
+    ANUL1: {C}
+    ANUL2: {C} U {A} = {C, A}
+</pre>
+                <table style="margin: 50px;">
+                    <tbody>
+                    <tr>
+                        <td><i>S</i></td>
+                        <td>→</td>
+                        <td><i>AB | aBC | SBS | B |aB </i></td>
+                    </tr>
+                    <tr>
+                        <td><i>A</i></td>
+                        <td>→</td>
+                        <td><i>aA | C | a</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>B</i></td>
+                        <td>→</td>
+                        <td><i>bbB | b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>C</i></td>
+                        <td>→</td>
+                        <td><i>cC | c</i></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+            </li>
+            <li>Eliminar las producciones unitarias.<br>
+                <table style="margin: 50px;">
+                    <tbody>
+                    <tr>
+                        <td><i>S</i></td>
+                        <td>→</td>
+                        <td><i>AB | aBC | SBS | bbB | b |aB
+
+                        </i></td>
+                    </tr>
+                    <tr>
+                        <td><i>A</i></td>
+                        <td>→</td>
+                        <td><i>aA | cC | a | c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>B</i></td>
+                        <td>→</td>
+                        <td><i>bbB | b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>C</i></td>
+                        <td>→</td>
+                        <td><i>cC | c</i></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+
+            </li>
+            <li>Substituir producciones combinadas introduciendo nuevas producciones de la forma <i>A → a</i>.<br>
+                <table style="margin: 50px;">
+                    <tbody>
+                    <tr>
+                        <td><i>S</i></td>
+                        <td>→</td>
+                        <td><i>AB | DBC | SBS | EEB | b |DB</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>A</i></td>
+                        <td>→</td>
+                        <td><i>DA | FC | a | c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>B</i></td>
+                        <td>→</td>
+                        <td><i>EEB | b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>C</i></td>
+                        <td>→</td>
+                        <td><i>FC | c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>D</i></td>
+                        <td>→</td>
+                        <td><i>a</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>E</i></td>
+                        <td>→</td>
+                        <td><i>b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>F</i></td>
+                        <td>→</td>
+                        <td><i>c</i></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+
+            </li>
+            <li>Eliminar producciones con más de dos no terminables introduciendo nuevas producciones de la forma A →
+                BC.<br>
+                <table style="margin: 50px;">
+                    <tbody>
+                    <tr>
+                        <td><i>S</i></td>
+                        <td>→</td>
+                        <td><i>AB | DI | SH | GB | b |DB</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>A</i></td>
+                        <td>→</td>
+                        <td><i>DA | FC | a | c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>B</i></td>
+                        <td>→</td>
+                        <td><i>GB | b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>C</i></td>
+                        <td>→</td>
+                        <td><i>FC | c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>D</i></td>
+                        <td>→</td>
+                        <td><i>a</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>E</i></td>
+                        <td>→</td>
+                        <td><i>b</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>F</i></td>
+                        <td>→</td>
+                        <td><i>c</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>G</i></td>
+                        <td>→</td>
+                        <td><i>EE</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>H</i></td>
+                        <td>→</td>
+                        <td><i>BS</i></td>
+                    </tr>
+                    <tr>
+                        <td><i>I</i></td>
+                        <td>→</td>
+                        <td><i>BC</i></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+            </li>
+        </ol>
+        Aquí la gramática ya se encuentra en FNC.<br><br>
+
+        Ejercicio. Expresar en FNC.
+        <table style="margin: 50px;">
+            <tbody>
+            <tr>
+                <td><i>S</i></td>
+                <td>→</td>
+                <td><i>aASb | BAb</i></td>
+            </tr>
+            <tr>
+                <td><i>A</i></td>
+                <td>→</td>
+                <td><i>Aa | a | λ</i></td>
+            </tr>
+            <tr>
+                <td><i>B</i></td>
+                <td>→</td>
+                <td><i>BAB | bAb</i></td>
+            </tr>
+            <tr>
+                <td><i>C</i></td>
+                <td>→</td>
+                <td><i>cCS | λ</i></td>
+            </tr>
+            </tbody>
+        </table><br><br>
+    </div>
+
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

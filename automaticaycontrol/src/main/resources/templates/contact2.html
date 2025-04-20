@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-8 mx-auto rounded border mb-3 px-5 py-4">
+        <h2 class="mb-5 text-center">Contact Form</h2>
+
+        <div th:if="${successMessage != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong th:text="${successMessage}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${errorMessage != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong th:text="${errorMessage}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <form method="post" th:object="${contactDto}">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input class="form-control" th:field="${contactDto.name}">
+                <p th:if="${#fields.hasErrors('name')}"
+                   th:errorClass="text-danger"
+                   th:errors="${contactDto.name}">
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>.
+                <input class="form-control" th:field="${contactDto.email}">
+                <p th:if="${#fields.hasErrors('email')}"
+                   th:errorClass="text-danger"
+                   th:errors="${contactDto.email}">
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Subject</label>
+                <input class="form-control" th:field="${contactDto.subject}">
+                <p th:if="${#fields.hasErrors('subject')}"
+                   th:errorClass="text-danger"
+                   th:errors="${contactDto.subject}">
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" id="message_id" rows="5" th:field="${contactDto.message}"></textarea>
+                <p th:if="${#fields.hasErrors('message')}"
+                   th:errorClass="text-danger"
+                   th:errors="${contactDto.message}">
+                </p>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+    <div class="container py-5">
+        <div class="rounded border p-4">
+            <h2 class="text-center mb-4">Contact</h2>
+            <hr>
+            <a href="/" class="btn btn-link">Home</a>
+        </div>
+
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Herramientas de Control de Flujo</strong></h1></div>
+    <div class="container">
+        El lenguaje de control de flujo se puede utilizar con instrucciones interactivas, en lotes y
+        en procedimientos almacenados. El control de flujo y las palabras clave relacionadas y sus
+        funciones son las siguientes:<br>
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/flujo.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Palabras clave en estructuras de control.</h5>
+            </div>
+        </div><br>
+        <b>Estructuras de control IF.</b><br>
+
+        La palabra clave <b>IF</b> se utiliza para definir una condición que determina si se
+        ejecutará la
+        instrucción siguiente. La instrucción <b>SQL</b> se ejecuta si la condición se cumple, es
+        decir, si
+        devuelve <b>TRUE</b> (verdadero). La palabra clave <b>ELSE</b> introduce una instrucción
+        <b>SQL</b> alternativa
+        que se ejecuta cuando la condición <b>IF</b> devuelva <b>FALSE.</b> La sintaxis de la
+        estructura
+        condicional <b>IF</b>:<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/flujo.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Estructura básica IF.</h5>
+            </div>
+        </div><br>
+
+        <b>Ejemplo.</b> Determine si en la tabla clientes hay más de cuatro que estén con balance
+        en ceros.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/contando.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo IF.</h5>
+            </div>
+        </div><br>
+        <b>Ejemplo.</b> Inserta un país y su código en caso de que éste no exista en la tabla
+        países.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/negocios.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo IF.</h5>
+            </div>
+        </div><br>
+
+        <b>Estructura condicional CASE.</b><br>
+
+        La estructura <b>CASE</b> evalúa una lista de condiciones y devuelve una de las varias
+        expresiones
+        de resultados posibles. La expresión <b>CASE</b> tiene dos formatos: La expresión
+        <b>CASE</b> sencilla
+        compara una expresión con un conjunto de expresiones sencillas para determinar el resultado.
+        La expresión <b>CASE</b> buscada evalúa un conjunto de expresiones booleanas para determinar
+        el
+        resultado. Ambos formatos admiten un argumento <b>ELSE</b> opcional. La sintaxis del
+        <b>CASE:</b><br>
+        <b><i>CASE <expresión><br>
+            WHEN <valor_expresion> THEN <valor_devuelto><br>
+                WHEN <valor_expresion1> THEN <valor_devuelto1><br>
+                    ELSE <valor_devuelto2> -- Valor por defecto<br>
+                        END<br></i></b>
+
+        <b>Ejemplo:</b> Declare una variable donde le asigne el número del mes, evalúe el valor de
+        la
+        variable y retorne el mes en letras.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/case.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo CASE.</h5>
+            </div>
+        </div><br>
+        La estructura <b>CASE</b> se puede utilizar en cualquier instrucción o cláusula que permita
+        una
+        expresión válida. Por ejemplo, puede utilizar <b>CASE</b> en instrucciones como <b>SELECT,
+        UPDATE,
+        DELETE y SET</b>, y en cláusulas como <b>select_list, IN, WHERE, ORDER BY y HAVING.</b>
+        La función <b>CASE</b>
+        es una expresión especial de Transact SQL que permite que se muestre un valor alternativo
+        dependiendo de una columna. Este cambio es temporal, con lo que no hay cambios permanentes
+        en los datos.<br>
+
+        <b>Ejemplo:</b> Mostrar los datos de los empleados evaluando el valor del campo tratamiento
+        asignando para cada valor una expresión. Para este ejemplo debe agregar el campo tratamiento
+        en la tabla empleados. Para esto, haga uso de la instrucción alter table:<br>
+        <h4>ALTER TABLE - Agregar una columna.</h4>
+        Sintaxis para agregar una columna:<br>
+        <i>ALTER TABLE table_name<br>
+            ADD column_name datatype;</i><br><br>
+        <h4>ALTER TABLE - Borrar una columna.</h4>
+        Sintaxis para borrar una columna:<br>
+        <i>ALTER TABLE table_name<br>
+            DROP COLUMN column_name;</i><br>
+        Después de agregada la columna, los datos de esta pueden ser editatos directamente en la
+        tabla.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/casedos.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo CASE.</h5>
+            </div>
+        </div><br>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Elabore una consulta que reciba el código de un empleado y regrese sus
+        datos
+        completos. (Mis_Negocios).<br>
+        <i>SELECT * FROM EMPLEADO(1)</i><br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/ejemplo.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salida.</h5>
+            </div>
+        </div><br>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Elabore una consulta que reciba la fecha actual y retorne el nombre de
+        todos
+        los empleados que cumplen años en el mes. (Mis_Negocios).
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/ejemplodos.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salida.</h5>
+            </div>
+        </div><br>
+
+        <h4>Usar una instrucción SELECT con una expresión CASE de búsqueda</h4><br>
+
+        En una instrucción <b>SELECT</b>, la expresión CASE de búsqueda permite sustituir valores en
+        el
+        conjunto de resultados basándose en los valores de comparación. En el ejemplo siguiente,
+        listamos los datos de los productos y definimos una columna llamada <b>ESTADO</b>, el cual
+        evaluará
+        stock de cada producto imprimiendo un valor: Stockeado, Limite, Haga una solicitud.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/valor.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salida.</h5>
+            </div>
+        </div><br>
+
+        <h3>Estructura de control WHILE.</h3>
+
+        <p>La estructura WHILE ejecuta en forma repetitiva un conjunto o bloque de instrucciones SQL siempre que la
+            condición especificada sea verdadera. Se puede controlar la ejecución de instrucciones en el bucle WHILE con
+            las
+            palabras clave BREAK y CONTINUE.
+            La sintaxis de WHILE es:<br>
+
+            <i>WHILE <expresion><br>
+                BEGIN<br>
+                ...<br>
+                END<br></i><br>
+
+            Por ejemplo: Implemente un programa que permita listar los 100 primeros números enteros, visualizando en
+            cada caso si es par o impar.
+        </p>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/mientras.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplos ciclo mientras.</h5>
+            </div>
+        </div><br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/numeros.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salida.</h5>
+            </div>
+        </div><br>
+        <i><b>BREAK y CONTINUE</b></i> controlan el funcionamiento de las instrucciones dentro de un bucle <i>WHILE.
+        BREAK</i> permite salir
+        del bucle <i>WHILE</i>. CONTINUE hace que el bucle <i>WHILE</i> se inicie de nuevo. La sintaxis de <i>BREAK y
+        CONTINUE</i> es:
+
+        <i>WHILE BOOLEAN_EXPRESION<br>
+            BEGIN<br>
+            EXPRESION_SQL<br>
+            [BREAK]<br>
+            [EXPRESION_SQL]<br>
+            [CONTINUE]<br>
+            [EXPRESION_SQL]<br>
+            END</i><br>
+
+        Ejemplo: Actualizar las unidades en existencia de los productos asignándoles un valor de 1000 a aquellos
+        productos cuyo stock sea cero.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/pausar.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo ciclo mientras.</h5>
+            </div>
+        </div><br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/producto.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salidas.</h5>
+            </div>
+        </div><br>
+
+        <h4>Estructura GOTO</h4><br>
+        <p>La sentencia goto nos permite desviar el flujo de ejecución hacia una etiqueta. Fué muy utilizada en
+            versiones
+            anteriores de SQL Server conjuntamente con la variable de sistema <i>@@ERROR</i> para el control de errores.
+            Actualmente, se desaconseja el uso GOTO, recomendándose el uso de <i>TRY - CATCH</i> para la gestión de
+            errores.</p>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Programar una estructura de control para determinar cuáles
+        pedidos han sido enviados. La
+        salida
+        debe ser así:
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/goto.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salidas.</h5>
+            </div>
+        </div><br>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Programar una estructura de control para determinar los
+        detalles de las facturas (INVOICE)
+        expedidas en las últimas 24 horas.<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/ejercicioo.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salidas.</h5>
+            </div>
+        </div><br>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Siendo que la tabla PRODUCT posee los códigos de vendedores
+        que realizaron la venta, y la tabla  VENDOR posee los códigos de todos los vendedores, realice una consulta que muestre aquellos vendedores que no
+        han realizado ninguna venta. Envíeles una nota de amonestación. La salida deberá ser como la siguiente:<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/ejercicioos.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salidas.</h5>
+            </div>
+        </div><br>
+        <span style="color:red ;"><b>Ejercicio.</b></span> Al vendedor que posea el primero lugar en record de ventas
+        envíele una felicitación; al que
+        tenga el menor record de ventas envíele una amonestación y a los demás envíeles una nota de ánimo. La salida
+        será así:<br>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/ejerciciooss.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Salidas.</h5>
+            </div>
+        </div><br>
+    </div>
+    <!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Conceptos de Herramientas I</strong></h1></div>
+    <ol type="1">
+        <li>
+            Escriba un programa que permita llenar un vector (arreglo unidimensional) desde el
+            teclado indicando también su tamaño y, en una segunda parte, indicar si un número
+            entrado también por teclado se encuentra en el vector y cuántas veces. Buscar_Uno();
+        </li>
+        <li>
+            Escriba un programa que permita llenar un vector (arreglo unidimensional) desde el
+            teclado indicando también su tamaño y, en una segunda parte, buscar el mayor y el
+            menor elemento. Buscar_Dos();
+        </li>
+        <li>
+            Escriba un programa que llene un vector de números aleatorios entre 0 y 100
+            y llame una función que calcula la media. Imprima el valor de la media y las posiciones
+            en que se encuentra.
+        </li>
+    </ol><br><br>
+
+    <!-- Accordion -->
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Conceptos básicos con java
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>Mostrando y capturando datos co el teclado.</strong><br>
+                    El código que aparece aquí es solo como ayuda para las clases. La explicación de su funcionamiento se da en la clase presencial.
+                    <hr>
+                    <pre>
+               package aplicacion_basica;
+
+               import java.util.Scanner;
+
+               /**
+                *
+                * @author Rubenangel
+                */
+               public class Aplicacion_Basica {
+
+                   /**
+                    * @param args the command line arguments
+                    */
+                   public static void main(String[] args) {
+                       //multiplicar();
+                       //mostrar_edad();
+                       //varios();
+                       numero_mayor();
+                   }
+                    static void multiplicar(){
+                       Scanner sc = new Scanner(System.in);
+                       System.out.println("Entre el primer número: ");
+                       double num_uno = sc.nextDouble();
+                       System.out.println("Entre el segundo número: ");
+                       double num_dos = sc.nextDouble();
+                        System.out.println("El producto de "
+                                + num_uno +  " con " +
+                                num_dos + " es: " + num_uno*num_dos);
+                   }
+                    static void numero_mayor(){
+                        Scanner scaner = new Scanner(System.in);
+                        System.out.println("Entre el número uno");
+                        double numero_uno = scaner.nextDouble();
+                        System.out.println("Entre el número dos");
+                        double numero_dos = scaner.nextDouble();
+
+                        if(numero_uno > numero_dos){
+                            System.out.println("El mayor es: " + numero_uno);
+                        }else{
+                            if(numero_uno == numero_dos){
+                            System.out.println("Los números son iguales.");
+                            }else{
+                            System.out.println("El mayor es: " + numero_dos);
+                            }
+                        }
+                    }
+
+
+
+
+
+                   static void varios(){
+
+                       //System.out.println("MI primera aplicación en Java"      +        " Estoy aquí no entiendo lo que dice el teacher. ");
+               //        System.out.println(2021);
+               //        System.out.println("Estamas en el " + 2021 + " en noviembre.");
+               //          System.out.println("La suma de " + 2 + " más " + 4 + " es: " + (2+4));
+               //          System.out.println("La resta de " + 2 + " menos " + 4 + " es: " + (2-4));
+               //          System.out.println("El producto de " + 2 + " por " + 4 + " es: " + 2*4);
+               //          System.out.println("El cociente de " + 2 + " con " + 4 + " es: " + 2.0/4);
+               //            double num_uno = 7.0;//Variables.
+               //            int num_dos = 13;
+               //          System.out.println("La suma de " + num_uno + " más " + num_dos + " es: " + (num_uno+num_dos));
+               //          System.out.println("La resta de " + num_uno + " menos " + num_dos + " es: " + (num_uno-num_dos));
+               //          System.out.println("El producto de " + num_uno + " por " + num_dos + " es: " + num_uno*num_dos);
+               //          System.out.println("El cociente de " + num_uno + " con " + num_dos + " es: " + String.format("%.2f", num_uno/num_dos));
+               //
+                       Scanner sc = new Scanner(System.in);// Para entrar datos.
+               //
+               //        double lado;
+               //        double altura;
+               //        double radio;
+               //        System.out.println("Entre el lado: ?");
+               //        lado = sc.nextDouble();
+               //        System.out.println("Entre la altura: ?");
+               //        altura = sc.nextDouble();
+               //        System.out.println("Entre el radio: ?");
+               //        radio = sc.nextDouble();
+               //
+               //
+               //        double area_circ;
+               //        double area_cuad;
+               //        double area_trian;
+               //        double vol_cub;
+               //        double vol_cil;
+               //        double vol_esf;
+               //
+               //        System.out.println("El área del cuadrado es: " +  String.format("%.2f", lado*lado));
+               //        System.out.println("El área del triángulo es: " +  String.format("%.2f", lado*altura/2));
+               //        System.out.println("El área del círculo es: " +  String.format("%.2f", 3.1416*radio*radio));
+               //        System.out.println("El volúmen del cubo es: " +  String.format("%.2f", lado*lado*lado));
+               //        System.out.println("El volúmen del cilindro es: " +  String.format("%.2f", 3.1416*radio*radio*altura));
+               //        System.out.println("El volúmen de la esfera es: " + String.format("%.2f",(4.0/3)*3.1416*radio*radio*radio));
+               //
+                         int edad;
+                         System.out.println("Escriba su edad en años: ");
+                         edad = sc.nextInt();
+                         System.out.println("Su edad es de: " + edad);
+                         System.out.println("El doble de su edad es de: " + 2*edad);
+                         System.out.println("El triple de su edad es de: " + 3*edad);
+                         System.out.println("Dentro de veinte años usted tendrá : " + (20+edad) +  " años");
+
+
+               }
+                   static void mostrar_edad(){
+                       Scanner sc = new Scanner(System.in);
+                       int edad;
+                       System.out.println("Escribe tu edad");
+                       edad = sc.nextInt();
+                       System.out.println("Tú tienes " + edad + " años");
+               }
+
+
+
+               }
+
+              </pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Conceptos básicos con java
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>Trabajando con arrays.</strong><br>
+                    El código que aparece aquí es solo como ayuda para las clases. La explicación de su funcionamiento se da en la clase presencial.
+                    <hr>
+                    <pre>
+                static void  numeros_aleatorios(){
+                  int numero;
+                  Scanner sc = new Scanner(System.in);
+                  String [] array = new String[100];// Se crea un arreglo
+                                                    // con cien elementos.
+                   // En esta sección se llena el arreglo.
+                  for (int i = 0; i < array.length; i++) {
+                      array[i] = String.format("%.0f",100*Math.random());;
+                  }
+                  // En esta sección se muestra el arreglo.
+                  for (int i = 0; i < array.length; i++) {
+                      System.out.println(" " + i + " " + array[i]);
+                  }
+                  // Deben aparecer cien números enteros aleatorios entre cero y 99
+                  //Ejercicio: determinar si un número entrado por teclado
+                  //se encuentra o no en el anterior arreglo.
+                  // Si sí, indicar en qué posición se encuentra.
+                  System.out.println("Entre el número a buscar: ");
+                  numero = sc.nextInt();
+                  for (int i = 0; i < array.length; i++) {
+                      if(Integer.parseInt(array[i]) == numero){
+                      System.out.println("El número se encuentra "
+                              + "en la posición  " + i);
+                      break;
+                      }
+                  }
+              }
+              </pre>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Conceptos básicos con java
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>Mostrando y capturando datos co el teclado.</strong> <br><hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

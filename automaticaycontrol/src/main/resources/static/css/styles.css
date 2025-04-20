@@ -1,0 +1,56 @@
+a:link {
+    color: darkgray;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: darkslategray;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: green;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+
+.collapse-container {
+    margin: 10px 0;
+}
+.collapse-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+}
+.collapse-button:hover {
+    background-color: #0056b3;
+}
+.content {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.anchodiv {
+    width: 30%;  /* Ocupa el 80% del ancho del padre */
+    max-width: 350px; /* No crecerá más de 600px */
+    margin: 0 auto; /* Centrar el div */
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+}

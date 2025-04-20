@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>El modelo relacional</strong></h1></div>
+    <div class="container">
+        <strong>Tablas. </strong> Poseen encabezado y cuerpo. El encabezado consiste en el nombre de
+        la tabla y de las
+        columnas. El cuerpo muestra las filas de la tabla. Para definir el encabezado de una tabla
+        se puede usar una sentencia <i>CREATE TABLE</i>. <i>CREATE TABLE</i> es una sentencia del
+        lenguaje de
+        consulta estructurada SQL (<i> Structered Query Language</i>).
+    </div>
+    <div class="card container p-4 w-60" style="margin-top: 7%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/tabla_uno.jpg" class="card-img-top" alt="...">
+
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Tipos de datos.</h5>
+        </div>
+    </div>
+    <br>
+    <p>
+        <strong>Actividad.</strong> Abra el SQL Server Management Studio. Haciendo click derecho
+        sobre el nodo
+        raíz y eligiendo New Query cree una base de datos con la sentencia:
+    </p>
+    <p><i>create database Students <br>
+        go
+    </i>
+    </p>
+    <p>
+        Expanda el nodo bases de datos y haciendo click derecho sobre la base de datos creada
+        elija nueva consulta y cree la siguiente tabla.
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/creatabla.jpg" class="card-img-top" alt="...">
+
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Creación de una tabla.</h5>
+        </div>
+    </div>
+    </p>
+    <p><strong>Conexiones entre tablas.</strong>
+        Las tablas están relacionadas entre sí con las filas que
+        contienen valores idénticos. Estas filas forman relaciones. Ejemplo. Las flechas
+        muestran los datos coincidentes entre las siguientes tablas.
+    </p>
+    <div class="card container p-4 w-50">
+        <div class="main-header ">
+            <img src="/images/imgDBI/relacion.jpg" class="card-img-top" alt="...">
+
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Relaciones entre tablas.</h5>
+        </div>
+    </div>
+    <br><br>
+    <p><strong>Definición de las reglas de integridad.</strong><br>
+        <u>Integridad de la entidad </u> significa que cada tabla debe tener una columna o
+        combinación
+        de columnas con valores únicos. Único significa que no existen dos filas de una tabla
+        que tengan el mismo valor. Por ejemplo, <i>StdSSN</i> en Student es única y la
+        combinación de
+        <i>StdSSN</i> y <i>OfferNo</i> es única en Enrollment.<br>
+        <u>Integridad referencial </u> significa que los valores de la columna de una
+        tabla deben
+        coincidir con los valores de la columna de la tabla relacionada. Por ejemplo, el valor
+        StdSSN de cada fila de la tabla Enrollment debe coincidir con el valor de <i>StdSSN</i>
+        de
+        alguna fila de la tabla <i>Student.</i><br>
+
+        <u>Superllave: </u> Una columna o combinación de columnas que contiene valores
+        únicos para cada
+        renglón. La combinación de todas las columnas de una tabla siempre es una superllave, ya
+        que las filas de una tabla deben ser únicas.<br>
+        <u>Llave candidata: </u> Una superllave mínima. Una superllave es mínima si al
+        quitar cualquiera
+        de las columnas ya no es única.<br>
+        <u>Valor nulo: </u> Un valor especial que representa la ausencia de un valor
+        presente. Un valor
+        nulo puede indicar que se desconoce el valor presente o que no aplica para una
+        determinada fila.<br>
+        <u>Clave primaria: </u> Una llave candidata diseñada de forma especial. La llave
+        primaria de una
+        tabla no puede contener valores nulos.<br>
+        <u>Clave externa: </u> Columna o combinación de columnas en la cual los valores
+        deben coincidir
+        con aquéllos de la llave candidata. Una llave externa debe tener el mismo tipo de datos
+        que su llave candidata asociada. En la sentencia CREATE TABLE de SQL, una llave foránea
+        debe estar asociada con una llave primaria en lugar de sólo con una llave candidata.<br>
+
+        <br><strong>Reglas de integridad.</strong>
+    <ul>
+        <li><u> Regla de integridad de la entidad:</u></li>
+        No puede haber dos filas en una tabla que contengan
+        el mismo valor para una llave primaria. Adicionalmente, ninguna fila puede tener un
+        valor nulo para cualquiera de las columnas de una llave primaria.
+        <br>
+        <li><u>Regla de integridad referencial:</u></li>
+        Solamente se pueden almacenar dos tipos de valores en
+        una llave foránea: un valor que coincida con la llave candidata de alguna fila de la
+        tabla que contenga la llave candidata asociada o un valor nulo.
+    </ul>
+    </p>
+    <p>
+        <b> Actividad. </b> Agregue la clave primaria a la tabla Student corriendo la siguiente
+        sentencia:
+    </p>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/claveex.jpg" class="card-img-top" alt="...">
+
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div>
+    <br>
+    <p>
+        <u><b>Variaciones de la integridad de la entidad.</b> </u><br>
+        Las llaves candidatas que no son llaves primarias se declaran con la palabra clave
+        <b>UNIQUE</b>. La tabla <i>Course</i> contiene dos llaves candidatas: <i> CourseNo</i>
+        (llave primaria) y
+        <i>CrsDesc</i> (descripción del curso). La columna <i>CourseNo</i> es la llave primaria,
+        ya que es más
+        estable que la columna <i>CrsDesc</i>. Las descripciones del curso pueden variar con el
+        tiempo,
+        pero los números del curso se conservan.
+    </p>
+    <br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/course.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Tabla course.</h5>
+        </div>
+    </div>
+    <p>
+        <b>Actividad.</b> Agregue la tabla Course con la siguiente sentencia:
+    </p>
+
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/coursedos.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div>
+    <p>
+        Algunas tablas necesitan más de una columna en la llave primaria. En la tabla
+        <i> Enrollment</i>, la combinación de <i>StdSSN</i> y <i>OfferNo</i> es la única llave
+        candidata. Se necesitan
+        ambas columnas para identificar una fila. A una llave primaria formada por más de una
+        columna se le conoce como <u> llave primaria compuesta o combinada.</u>
+    </p>
+    <br>
+    <p>
+        <b>Actividad.</b> Cree la tabla Enrollment con la siguiente sentencia:
+    </p><br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/modif.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div><br>
+    <p>
+        <b>Integridad referencial.</b>
+        Para la integridad referencial, las columnas <i> StdSSN</i> y <i>OfferNo</i> son llaves
+        foráneas en la
+        tabla<i>Enrollment</i> . La columna <i>StdSSN</i> hace referencia a la tabla
+        <i>Student</i> y la columna
+        <i>OfferNo</i> hace referencia a la tabla <i>Offering.</i><br>
+
+        Para definir las llaves foráneas de <i>Enrollment</i>, debe utilizar las cláusulas
+        <i>CONSTRAINT</i>
+        para las llaves foráneas al final de la sentencia <i>CREATE TABLE</i>, como se muestra
+        en la
+        revisión de la sentencia <i>CREATE TABLE</i> para la tabla <i>Enrollment.</i>
+    </p><br>
+    <p>
+        <b>Actividad.</b> Cree la tabla Faculty con la siguiente sentencia:
+    </p><br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/fac.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div><br>
+    <p>
+        Cree la tabla <b><i>Offering</i></b> con la siguiente sentencia:
+    </p><br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/offer.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div><br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/faculty.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Tabla Faculty</h5>
+        </div>
+    </div><br>
+    <p>
+        Modifique la tabla <i> Enrollment</i> con la siguiente sentencia:
+    </p><br>
+    <div class="card container p-4 w-50" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/enroll.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+        </div>
+    </div><br>
+    <p>
+        Cuando una clave externa es parte de una clave primaria, no se permiten los valores
+        nulos gracias a la regla de integridad de la entidad. Por ejemplo, no se permiten
+        valores nulos para Enrollment.StdSSN ni para<i> Enrollment.OfferNo,</i> ya que cada una
+        de las
+        columnas es parte de la clave primaria.<br>
+
+        La palabra clave<i>NOT NULL</i> indica que una columna no puede tener valores nulos, tal
+        como
+        se muestran en la sentencia <i>CREATE TABLE</i> de la tabla <i>Offering</i>.
+    </p>
+    <p>
+        <b> Actividad de repaso.</b>
+    </p>
+    <p>
+    <ol type="1">
+        <li></b> Haciendo uso del<i> Microsoft Server Management Studio</i>, cree la base de
+            datos de muestra
+            ilustrada en la sección 1.1 del libro de bases datos suministrado, llámela<i>
+                “Students”.</i><br>
+            <b>
+        </li>
+        <li></b> Suponga que a usted se le encomendó crear la base de datos de las tiendas D1.
+            Qué tablas crearía? Cree la base de datos y llámela <i>“Mi_Tienda”</i> con al menos
+            cinco tablas.
+        </li>
+        <li>
+            Cree las tablas de la base de datos de la tienda. Inserte al menos cinco registros
+            en cada tabla. Cree las relaciones que considere necesarias basándose en esta
+            imagen: considere la creación de tablas con claves externas apuntando a más de una
+            tabla.
+
+            <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+                <div class="main-header ">
+                    <img src="/images/imgDBI/tablas_crear.jpg" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                </div>
+            </div><br>
+
+
+        </li>
+        <li>
+            <p>Verifique la información almacenada haciendo uso de:</p>
+            <p><i>select * from productos<br>
+                go<br>
+                select * from proveedores<br>
+                go<br>
+            </i>
+            </p>
+        </li>
+        <li>Generar el diagrama de realaciones de la base de datos. </li>
+        <li>
+            <p><b>Atividad individual y entregable. </b>Haciendo uso del libro de Bases de Datos
+                compartido en el drive, elaborar los ejercicios de la página 18. </p>
+        </li>
+    </ol>
+    </p><br>
+    <p>
+        <b>Integridad referencial para las relaciones autorreferenciales (unitarias).</b> Una
+        restricción de integridad referencial que incluye una tabla sencilla se conoce como
+        relación autorreferencial o unitaria. Las relaciones autorreferenciales no son comunes,
+        pero cuando ocurren son importantes. En la base de datos de la universidad, un miembro
+        de la facultad puede supervisar a otros miembros de su facultad y a la vez ser
+        supervisado por un miembro de la misma facultad.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/diagramare.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Diagrama de relaciones.</h5>
+        </div>
+    </div><br>
+
+    Las acciones para eliminar y actualizar se pueden especificar en SQL utilizando las
+    cláusulas <i>ON DELETE</i> y <i>ON UPDATE</i>. Estas cláusulas son parte de restricciones de
+    las llaves
+    foráneas. Por ejemplo, la declaración revisada <i></i>CREATE TABLE para la tabla
+    <i>Enrollment</i> muestra
+    las cláusulas<i> ON DELETE</i> y <i>ON UPDATE</i>. Las palabras claves <i>CASCADE, SET NULL
+    y SET DEFAULT</i>
+    pueden utilizarse para especificar de la segunda a la cuarta opción, respectivamente.<br>
+
+    Modifique la tabla Enrollment con la siguiente sentencia:<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/modificar.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">ONUPDATE y ONDELETE.</h5>
+        </div>
+    </div><br>
+
+    Se debe insertar una fila referenciada antes de sus filas relacionadas. Por ejemplo, antes
+    de insertar una fila en la tabla <i>Enrollment</i>, deben existir las filas referenciadas de
+    las
+    tablas <i>Student</i> y <i>Offering</i>. La integridad referencial indica el orden de
+    inserción de las
+    filas de las distintas tablas. Cuando se diseñan formularios de captura de datos, debe
+    considerarse cuidadosamente el impacto de la integridad referencial en el orden en el que
+    los usuarios llenan los formularios.<br>
+
+    <b>Ejercicio.</b> Tomando como ejemplo para comando de inserción el siguiente query<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/insertar.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Insertar.</h5>
+        </div>
+    </div><br>
+    diligencie las tablas relacionadas en la base de datos <i>Students</i>.
+    La salida deberá ser así:<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/salida.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Insertar.</h5>
+        </div>
+    </div><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/salida2.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Insertar.</h5>
+        </div>
+    </div><br>
+    </p><br>
+    <p></p><br>
+
+    <p>
+    <h3>Álgebra relacional.</h3><br>
+    Operador de restricción (select) y proyección (project).
+    La restricción genera un subconjunto de renglones, mientras que la proyección genera
+    un subconjunto de columnas.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/proyeccion.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ejemplo de select.</h5>
+        </div>
+    </div><br>
+
+    <b>Ejemplo.</b><br>
+    Seleccionar de la tabla Offering el número de curso y la facultad ofrecidos los días
+    'MW' o 'TTH'<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/selectt.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ejemplo de select..</h5>
+        </div>
+    </div><br>
+
+    <b>Operador de producto cruz extendido.</b><br>
+    Muestra todas las combinaciones posibles de dos tablas. El producto de dos tablas es una
+    nueva tabla formada por todas las combinaciones posibles de las filas de las dos tablas
+    de entrada.<br>
+
+    <b>Ejemplo.</b> Con las tablas <i>Student</i> y <i>Enrollment.</i><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/cross.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ejemplo de unión de tablas. </h5>
+        </div>
+    </div><br>
+    Debido a la exagerada información desplegada por este tipo de operador, su uso es
+    poco.<br>
+    <b>Operador de enlace (join).</b><br>
+    El operador enlace (unión) construye una tabla nueva al combinar filas de dos tablas que
+    coinciden con una condición de enlace. Comúnmente, la condición de enlace especifica que
+    dos filas tienen un valor idéntico en una o más columnas.
+
+    <b>Ejemplo.</b> Unión de las tablas <i>Offering</i> con <i>Course</i> donde los números
+    de curso (<i>CourseNo</i>)
+    son iguales.<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/union.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ejemplo de unión de tablas. </h5>
+        </div>
+    </div><br>
+
+    <b>Operador de enlace externo (outer join).</b><br>
+    El operador de enlace externo ofrece la capacidad de preservar las filas que no
+    coinciden en el resultado, así como incluir las filas que sí coinciden.
+    El operador de enlace externo (outer join) tiene dos variantes. El operador de enlace
+    externo completo (full outer join) conserva las filas que no coincidan de las dos tablas
+    iniciales. Debido a que en ocasiones es útil conservar las filas que no coinciden de una
+    de las tablas, se creó el operador de enlace externo de un solo lado (one-sided outer
+    join).<br>
+    <b>Ejemplo.</b><br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/outer.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ejemplo de unión de tablas (outer). </h5>
+        </div>
+    </div><br>
+
+    <b>Operadores de unión, intersección y diferencia.</b><br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/diferencia.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Unión, intersección y diferencia.</h5>
+        </div>
+    </div><br>
+    Los operadores de tablas unión, intersección y diferencia son semejantes a los
+    operadores de conjuntos tradicionales. Los operadores tradicionales de conjuntos se usan
+    para determinar todos los miembros de dos conjuntos (unión), miembros comunes de dos
+    conjuntos (intersección) y miembros que sólo están en un conjunto (diferencia).
+    Una operación de unión extrae todas las filas de cualquier tabla. Una operación de
+    intersección extrae sólo las filas comunes y una operación de diferencia extrae las
+    filas de la primera tabla que no están en la segunda tabla.<br>
+
+    <b>Ejemplos.</b><br>
+
+    Considerando las siguientes dos tablas:<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/estud.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"> </h5>
+        </div>
+    </div><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/unir.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">UNION. </h5>
+        </div>
+    </div><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/restar.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">EXCEPT. </h5>
+        </div>
+    </div><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/intersectar.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">INTERSECT. </h5>
+        </div>
+    </div><br>
+
+    <b>Operador resumir (<i>summarize</i>).</b><br>
+    El operador resumir permite que grupos de filas se compriman o resuman para un valor
+    calculado. Casi cualquier tipo de función estadística se puede usar para resumir grupos
+    de filas. El operador resumir comprime una tabla al reemplazar grupos de filas por filas
+    individuales que contienen valores calculados. Se usa una función estadística o agregada
+    para los valores calculados.<br>
+
+    <b>Ejemplo.</b><br>
+    Haciendo uso de la tabla Faculty.<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/intersectar.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">RESUMIR. </h5>
+        </div>
+    </div><br>
+    <i>RESUMIR Faculty<br>
+        SUMAR PROMEDIO<br>
+        (FacSalary)<br>
+        AGRUPAR PORFacDept</i><br><br>
+    <b>Ejercicio.</b><br>
+
+    Extraiga de las tablas <i>Student1</i> y <i>Student2</i>, los estudiantes que vivan en
+    <i>SEATTLE.</i>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/ejer_1.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Salida. </h5>
+        </div>
+    </div><br>
+    <b>Ejercicio. </b><br>
+
+    Extraiga de las tablas Student1 y Student2, los estudiantes que vivan en SEATTLE.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <img src="/images/imgDBI/ejer_2.jpg" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Salida. </h5>
+        </div>
+    </div><br>
+    <b>Ejercicio.</b><br>
+    Determine cuáles profesores tienen un salario por encima del promedio.
+    Ayuda. Consulte cómo se declara y usa una variable.
+    </p>
+
+</div>
+<!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

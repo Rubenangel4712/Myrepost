@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Saberes previos</strong></h1></div>
+    <div class="container py-5">
+        <p>Esta sección tiene como objetivo hacer un repaso sobre el manejo de algunos conceptos
+            matemáticos que serán de utilidad para el desarrollo del curso. NO es una actividad
+            evaluativa por lo cual no se tendrá que entregar ninguna evidencia de esta.
+        </p>
+        <p><b>Ejercicios sobre inducción matemática.</b>
+        <ol type="1">
+            <li>Demostrar que la suma de los <i> n</i> primeros números naturales es igual a <i>n(n+1)/2</i>.</li>
+            <li>Probar que , <i>∀n ∈ Ν : 1⋅3+2⋅4+3⋅5+ …+n(n+2) = n(n+1).(2n+7)/6.</i></li>
+            <li>Determinar si el producto de 3 números impares consecutivos es siempre divisible por 6.</li>
+        </ol>
+
+        </p>
+        <p><b>Ejercicios sobre teoría de conjuntos.</b>
+        <ol type="1">
+            <li>Determinar, en el conjunto de los números enteros, cuáles de los siguientes conjuntos son
+                iguales.<br><i>
+                    A ={x : x es par y x<sup>2</sup> es impar}<br>
+                    B = {x : Ǝ y, y ∈ Z ∧ x = 2y}<br>
+                    C = {1, 2, 3}<br>
+                    D = {0, 2,-2, 3,-3, 4,-4, . . .}<br>
+                    E = {2x : x ∈ Z}<br>
+                    F = {3, 3, 2, 1, 2}<br>
+                    G = x : x<sup>3</sup> - 6x<sup>2</sup> - 7x - 6 = 0</i><br>
+
+            </li><br>
+            <li>
+                ¿Es B = {1, 2, 3} un subconjunto de A = {x ∈ R : x<sup>2</sup> - 3x + 2 = 0}?
+            </li><br>
+            <li>Para cada uno de los siguientes conjuntos , elegir un conjunto universal y un predicado
+                apropiado para definirlo.<br>
+                <ol type="a">
+                    <li>El conjunto de los enteros entre 0 y 100.</li>
+                    <li>El conjunto de los enteros positivos impares.</li>
+                    <li>El conjunto de los múltiplos de 10.</li>
+                </ol>
+            </li>
+        </ol>
+
+        </p>
+        <p><b>Ejercicios sobre lógica proposicional.</b>
+        <ol type="1">
+            <li>Cuál de las siguientes fórmulas representa la proposición “Llegará en el tren de las 8:15
+                o en el de las 9:15, si llega en el primero, entonces tendrá tiempo para visitarnos”. Donde:<br>
+                p expresa “Llegará en el tren de las 8:15”<br>
+                q expresa “Llegará en el tren de las 9:15”<br>
+                r expresa “Tendrá tiempo para visitarnos”<br><br>
+                <ol type="a">
+                    <li>¬p → q v r</li>
+                    <li>p v q → r</li>
+                    <li>(p → q) ∧ (p ∧ r)</li>
+                    <li>p v ¬q → r</li>
+                    <li>(p v q) ∧ (p → r)</li>
+                </ol>
+            </li><br>
+            <li>Sean las fórmulas F = (p → q) v ((¬p v q)∧(q → r)) y G = (p → q). Determinar si las dos fórmulas son
+                equivalentes. </li>
+            <br>
+            <li>Repita el ejercicio anterior haciendo uso de tablas de verdad.</li>
+        </ol>
+        </p>
+        <p><b>Ejercicios sobre funciones.</b>
+        <ol type="1">
+            <li>Sean A = {a, b, c, d} y B = {1, 2, 3}. Determinar si las siguientes relaciones de A en B
+                son funciones. En caso de que lo sean dar su imagen.<br>
+                <ol type="a"><i>
+                    <li>R = {(a, 1), (b, 2), (c, 1), (d, 2)}</li>
+                    <li>R = {(a, 1), (b, 2), (a, 2), (c, 1), (d, 2)}</li>
+                    <li>R = {(a, 3), (b, 2), (c, 1)}</li>
+                    <li>R = {(a, 1), (b, 1), (c, 1), (d, 1)}</li>
+                </i>
+                </ol>
+            </li>
+            <li>Sean <i>f(x) = 1/(1+e<sup>-(3/4)x<sup>2</sup></sup>) </i> y <i>g(y) = 3y<sup>2</sup>-5 </i> , determinar
+                <i>f(g(y))</i> y evaluarla en <i>y = 2.</i>
+            </li>
+            <li>Sean f(a) = a - 1 y g(b) = b<sup>2</sup>. Encontrar:<br>
+                <ol type="a">
+                    <li> (g o f)(2) (significa g compuesta f)</li>
+                    <li> (f o g)(2)</li>
+                    <li> (f o g)(x)</li>
+                    <li> (g o f)(x)</li>
+                    <li> (f o f)(y)</li>
+                    <li> (g o g)(y)</li>
+                </ol>
+            </li>
+        </ol>
+        </p>
+
+    </div>
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

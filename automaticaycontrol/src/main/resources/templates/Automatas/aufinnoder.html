@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="container py-5">
+        <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Autómatas Finitos NO Determinísticos</strong></h1></div>
+        Si se permite que desde un estado se realicen cero, una o más transiciones mediante el mismo símbolo de entrada, se
+        dice que el autómata finito es no determinista.
+        Teniendo en cuenta el AFN siguiente, obsérvese en este que las reglas de transición no son una función de Q x ∑ en Q
+        debido a que no se asigna un estado siguiente a los pares estado-entrada (q<sub>4</sub>, a), (q<sub>3</sub>, a),
+        (q<sub>3</sub>, b), (q<sub>2</sub>, a) y (q<sub>2</sub>, b). Es más, existe más de un estado siguiente para el par
+        (q<sub>0</sub>, a). Por lo tanto, este diagrama de transición
+        representa un ejemplo de un AFN.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_31.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        En el AFN existen todos los componentes que también existen en el AFD; la única diferencia está en la función de
+        transición y por eso se define como
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_33.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        ∆(q, σ) es una colección de cero o más estados. Esto indica que para todo estado q se pueden tener cero o más
+        alternativas para elegir como estado siguiente y todas para el mismo símbolo de entrada.<br>
+
+        Por ejemplo, para el autómata anterior se tiene que:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_34.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Obsérvese que en esta tabla, las celdas son conjuntos.<br>
+        Dado que para un mismo símbolo de entrada se pueden dar diferentes transiciones, en el modelo no existe <b><i>nada
+        que determine</i></b>
+        cuál deberá ser el estado siguiente. Este es el concepto de no determinista.<br>
+        <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span><br>
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_35.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Y ∆ dado por la tabla:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_36.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        El diagrama de transición de estados correspondiente será:
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_32.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Obsérvese que cuando se está en el estado q<sub>1</sub> mediante el símbolo de entrada <i>b</i> se puede pasar a dos
+        posibles estados
+        siguientes. La elección de tal estado no está determinada en el modelo. Si para el reconocimiento de la cadena
+        <i>aba</i>,
+        se elige q<sub>2</sub> como estado siguiente desde el par (q<sub>1</sub>, <i>b</i>), se llega a un estado de
+        aceptación. Sin embargo, si se elige
+        q<sub>0</sub> no se llega a un estado final o de aceptación.<br>
+        Como con los AFD, si M es un AFN, se define el lenguaje aceptado por M como:
+        <p style="text-align:center"><i>L(M) = {w|w es una cadena aceptada por M}</i></p>
+        <i>w</i> se debe recorrer en su totalidad. Para decir que una cadena no pertenece a M, además de agotar toda la
+        cadena, se
+        deben considerar todas las posibilidades en los estados con más de una transición para un mismo símbolo.<br><br>
+        <h3>Equivalencia de AFN y AFD. </h3>
+        Un autómata M es equivalente a un autómata M’ si L(M) = L(M’). <br>
+        <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span><br>
+        Considérese el AFN M con las siguientes características:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_37.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Tabla de M.</h5>
+            </div>
+        </div><br>
+
+        El diagrama de transición de estado es el siguiente.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_38.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Diagrama de M.</h5>
+            </div>
+        </div><br>
+        El diagrama de transición correspondiente al AFD M' que es equivalente al M viene dado por
+        el siguiente diagrama.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_39.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Diagrama de M'.</h5>
+            </div>
+        </div><br>
+
+        Obsérvese que cada estado de M' corresponde a un conjunto de estados de M. Los estados de
+        aceptación de M'se corresponden con los conjuntos de estados de M que contienen estados de
+        aceptación.
+        Se verifica fácilmente que la regla de transición de M' es una función. Por tanto<br>
+        <p style="text-align: center;">M’ =  (Q’, ∑’, s’, δ, F’), donde:</p>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_40.jpg" class="card-img-top" alt="...">
+                <img src="/images/imAt/at_40.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Y  δ  viene dada por la tabla:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/at_41.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+    </div>
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

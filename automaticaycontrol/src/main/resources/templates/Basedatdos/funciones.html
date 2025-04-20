@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Funciones</strong></h1></div>
+    <div class="container">
+        <b>Funciones definidas por el usuario</b><br>
+        <p>Las funciones son rutinas que permiten encapsular sentencias <b>TRANSACT-SQL</b> que se
+            ejecutan
+            frecuentemente.
+
+            Las funciones de usuario, según el tipo de retorno se clasifican en las siguientes:</p>
+        <ol type="1">
+            <li>Funciones Escalares.</li>
+            <li>Funciones con valores de tabla de varias instrucciones.</li>
+            <li>Funciones con valores de tabla en línea.</li>
+        </ol>
+
+        <p>Funciones escalares
+            Son aquellas funciones que retornan un valor único: tipo de datos como int, Money,
+            varchar,
+            real, etc. Pueden ser utilizadas en cualquier lugar, incluso, incorporadas dentro de las
+            sentencias SQL.</p>
+        <p><b>Sintaxis.</b></p>
+        <p><i>
+            CREATE FUNCTION [PROPIETARIO.] NOMBRE_FUNCION<br>
+            ([{@PARAMETER TIPO DE DATO [=DEFAULT]} [,..N]])<br>
+            RETURNS VALOR_ESCALAR<br>
+            [AS]<br>
+            BEGIN<br>
+            CUERPO DE LA FUNCION<br>
+            RETURN EXPRESION_ESCALAR<br>
+            END
+        </i></p>
+        <p><b>Ejemplo.</b> Crear una función que retorne el precio promedio de todos los productos
+        </p>
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/funcion.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo de función.</h5>
+            </div>
+        </div><br>
+        <p>Para ejecutar la función corremos.
+        </p>
+        <p><i><b>PRINT DBO.PRECIOPROMEDIO()</b></i></p>
+        <p><b>Ejemplo.</b> Defina una función donde ingrese el número del cliente (<i>CUS_CODE</i>)
+            y retorne el
+            valor de su balance (<i>CUS_BALANCE</i>). (SaleCo).</p>
+        <p>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/funcion_2.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Ejemplo de función.</h5>
+            </div>
+
+        </div><br></p>
+        <p>
+            Las funciones escalares son muy similares a procedimientos almacenados con parámetros de
+            salida, pero estas pueden ser utilizadas en consultas de selección y en la cláusula
+            where de las mismas. Las funciones <b>NO</b> pueden ejecutar sentencias <b>INSERT</b> o
+            <b>UPDATE.</b>
+        </p>
+        <p>
+            <b>Ejercicios.</b>
+
+        <ol type="1">
+            <li>Elabore un query que reciba el código de un producto y le rebaje el 15%
+                de su valor. Se debe imprimir el nuevo valor y mostrar su fila actualizada.
+
+                <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+                    <div class="main-header ">
+                        <img src="/images/imgDBII/funcion_3.jpg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Ejemplo de función.</h5>
+                    </div>
+
+                </div><br>
+
+            </li>
+            <li>
+                Elaborar una función que reciba como argumento un número e imprima su raíz cuadrada.
+            </li>
+            <li>
+                Elaborar una función que reciba como argumentos una base y un exponente e imprima el
+                resultado.
+            </li>
+            <li>Elabore dos ejemplos con argumentos tipo date time.</li>
+            <li>Elabore dos ejemplos con argumentos tipo varchar</li>
+            <li>Elabore dos ejemplos con argumentos tipo money</li>
+        </ol>
+        </p>
+
+    </div>
+    <!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

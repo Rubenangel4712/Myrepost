@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Lenguajes y Expresiones Regulares</strong></h1></div>
+    <div class="container py-5">
+        Una expresión regular (e.r) es una notación normalizada para representar lenguajes regulares o lenguajes de
+        gramática tipo 3. Las e.r permiten escribir con exactitud y sencillez cualquier lenguaje regular.
+        Además de todos los símbolos del alfabeto ∑ también se utilizan los símbolos Ф, λ, +, ., * y ().<br>
+
+        <ul>
+            <li>Ф: el lenguaje vacío.</li>
+            <li>λ: la palabra vacía.</li>
+            <li>+: representa la unión.</li>
+            <li>.: concatenación (aunque suele no escribirse).</li>
+            <li>*: representa el cierre (estrella de Kleene).</li>
+            <li>(): modifican las prioridades de los demás operadores.</li>
+        </ul>
+
+        Una e.r se puede definir de acuerdo con los siguientes criterios:
+        <ol type="1">
+            <li>Ф es una e.r que representa al lenguaje vacío (no tiene palabras) L<sub>Ф</sub> = Ф</li>
+            <li>λ es una e.r que representa al lenguaje L<sub>λ</sub> = {λ}.</li>
+            <li><i>a</i> ϵ ∑ es una e.r que representa al lenguaje L<sub><i>a</i></sub> = <i>{a}</i>.</li>
+            <li>Si α y β son e.r entonces α + β también lo es y representa al lenguaje L<sub>(α+β)</sub> = L<sub>α</sub> U
+                L<sub>β</sub></li>
+            <li>Si α y β son e.r entonces αβ también lo es y representa al lenguaje L<sub>αβ</sub> =
+                L<sub>α</sub>L<sub>β</sub></li>
+            <li>Si α es una e.r entonces α<sup>*</sup> también lo es y representa al lenguaje L<sub>α<sup>*</sup></sub> =
+                U<sup>∞</sup><sub>(i=0)</sub> L<sub>α<sup>i</sup></sub> que también se
+                puede representar como α<sup>*</sup>= ∑<sup>∞</sup><sub>(i=0)</sub>α<sup>i</sup></li>
+        </ol><br>
+
+        Solo son e.r aquellas que puedan ser definidas utilizando estos seis puntos.
+        La prioridad de las operaciones, que puede modificarse utilizando paréntesis es de mayor a menor: * . +<br><br>
+        <p style="color: darkgreen;">Ejemplo.</p> Sea ∑ = {0, 1}
+        <ol type="1">
+            <li>01 + 001 es una e.r que representa al lenguaje L = {01,001}</li>
+            <li>0*10* es una e.r que representa a cualquier cadena binaria en la que hay un solo 1, L =
+                {0<sup>n</sup>10<sup>m</sup> /n,m≥0 }</li>
+        </ol>
+        Sea ∑ = {a, b, c}
+        <ol type="1">
+            <li>a(b + c)* representa a cualquier cadena que empiece por a.</li>
+            <li>(b + c)* representa al lenguaje universal definido sobre el alfabeto.</li>
+        </ol>
+        <b>Álgebra de las expresiones regulares.</b> <br><br>
+        <b>Propiedades de la unión.</b>
+        <table>
+            <tr>
+                <td>1. Asociativa</td>
+                <td>(α + β) + ϒ = α + (β + ϒ)</td>
+            </tr>
+            <tr>
+                <td>2. Conmutativa</td>
+                <td>α + β = β + α</td>
+            </tr>
+            <tr>
+                <td>3. Elemento neutro (Ф)</td>
+                <td>α + Ф = α</td>
+            </tr>
+            <tr>
+                <td>4. Idempotencia</td>
+                <td>α + α = α</td>
+            </tr>
+        </table>
+        <br>
+        <b>Propiedades de la concatenación.</b>
+
+        <table>
+            <tr>
+                <td>1. Asociativa</td>
+                <td>(αβ)ϒ = α(βϒ)</td>
+            </tr>
+            <tr>
+                <td>2. Distributiva respecto a la unión. </td>
+                <td>α(β + ϒ) = αβ + αϒ</td>
+            </tr>
+            <tr>
+                <td>3. Elemento neutro (λ)</td>
+                <td>αλ = λα = α</td>
+            </tr>
+            <tr>
+                <td>4. αФ = Ф</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5. No es conmutativa</td>
+                <td></td>
+            </tr>
+        </table><br>
+
+        <b> Propiedades del cierre de Kleene(*).</b><br>
+        <ol type="1">
+            <li>λ* = λ</li>
+            <li>Ф* = λ</li>
+            <li>α* α* = α*</li>
+            <li>α*α = αα*</li>
+            <li>(α*)* = α*</li>
+            <li>α* = λ + αα*</li>
+            <li>α* = λ + α + α2 + … + αn + αn+1 α*</li>
+            <li>A<sup>+</sup> = A*.A = A.A* (A<sup>+</sup> se denomina clausura positiva)</li>
+            <li>A* A* = A*</li>
+            <li>(A* )<sup>n</sup> = A* para todo n ≥1</li>
+            <li>(A*)* = A*</li>
+            <li>A<sup>+</sup> A<sup>+</sup>⊆ A<sup>+</sup></li>
+            <li>(A<sup>+</sup>)* = A*</li>
+            <li>(A<sup>+</sup>)<sup>+</sup> = A<sup>+</sup></li>
+            <li>Si A y B son lenguajes sobre ∑*, entonces (A U B)* = (A*B*)*</li>
+        </ol>
+
+        <p style="color: darkgreen;">Ejemplos.</p>
+        Sea ∑ = {a, b}. Los siguientes son lenguajes regulares sobre ∑.
+        <ol type="1">
+            <li>El lenguaje A de todas las cadenas que tienen exactamente una a:
+                <p style="text-align: center;">A= {b}*. { a } . { b }*</p>
+                Una expresión regular para este lenguaje es: b*ab*
+            </li>
+            <li>El lenguaje B de todas las cadenas que comienzan con b:
+                <p style="text-align: center;">B= b(a U b )*</p>
+                Una expresión regular para este lenguaje es: b*ab*
+            </li>
+            <li>El lenguaje C de todas las cadenas que contienen la cadena ba:
+                <p style="text-align: center;">C= {a, b}*. { ba } . {a, b }*</p>
+                Una expresión regular para este lenguaje es: C= (a, b)*. ba . (a, b )*
+            </li>
+            <li>Dado el alfabeto ∑ = {a, b, c}, una expresión regular que representa al lenguaje
+                <p style="text-align: center;">A= ({a} U {b}* . {a}*. {bc}*</p>
+                Una expresión regular para este lenguaje es: (aUb*)a*(bc)*
+            </li>
+            <li>Dado el alfabeto ∑ = {a, b}
+                <p style="text-align: center;">(λ U a)*(a U b)*(ba)*</p>
+                es una expresión regular que representa al lenguaje
+                <p style="text-align: center;">A= ({λ} U {a})*.({a} U {b})*.{ba}*</p>
+            </li>
+        </ol>
+        La representación de lenguajes regulares por medio de e.r no es única. Es posible que haya varias expresiones
+        regulares diferentes para el mismo lenguaje. Por ejemplo, b(a U b)* y b(b U a)* representan el mismo lenguaje.
+        <p style="color: darkgreen;">Ejemplos.</p> Encontrar expresiones regulares que representen los siguientes
+        lenguajes definidos sobre el alfabeto ∑ = {a, b}.
+
+        <ol type="1">
+            <li>
+                Lenguaje de todas las cadenas que comienzan con el símbolo b y terminan con el símbolo a.
+                <p style="text-align: center;">b(a U b)*a</p>
+            </li>
+            <li>
+                Lenguaje de todas las cadenas que tienen un número par de símbolos (cadenas de longitud par).
+                <p style="text-align: center;">(aa U ab U ba U bb)<sup>*</sup>. Otra e.r para este lenguaje es:((a U b)(a U b))*</p>.
+            </li>
+            <li>
+                El lenguaje de todas las cadenas que tienen un número par de aes.
+                <ol>
+                    <li>
+                        b*(b*ab*ab*)*
+                    </li>
+                    <li>
+                        (ab*a U b)*
+                    </li>
+                    <li>
+                        (b*ab*ab*)* U b*
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+
+        <p style="color: darkgreen;">Ejemplos.</p>
+        Encontrar expresiones regulares que representen los siguientes lenguajes definidos sobre el alfabeto ∑ = {0, 1}.
+        <ol type="1">
+            <li>
+                Lenguaje de todas las cadenas que tienen exactamente dos ceros.
+                <p style="text-align: center;">1*01*01*</p>
+            </li>
+            <li>
+                Lenguaje de todas las cadenas cuyo penúltimo símbolo de izquierda a derecha es un 0.
+                <p style="text-align: center;">(0 U 1)*0(0 U 1). </p>
+            </li>
+        </ol>
+        <p style="color: darkgreen;">Ejemplo.</p> Sea ∑ = {0, 1}, encontrar una e.r que represente al lenguaje de todas las
+        cadenas que no contienen ceros consecutivos.<br>
+        La condición de que no hayan ceros consecutivos implica que todo cero debe estar seguido necesariamente de un uno,
+        excepto un cero al final de la cadena. Por lo tanto, las cadenas de este lenguaje se obtienen concatenando unos
+        con bloques 01 de todas las formas posibles. Hay que tener en cuenta, además, que la cadena puede terminar ya sea en
+        1 o en 0.
+        <p style="text-align: center;">(1 U 01)* U (1 U 01)* 0</p>
+        <p style="color: darkgreen;">Ejemplo.</p> Sea ∑ = {a, b, c}, encontrar una e.r que represente el lenguaje de todas
+        las cadenas que no contienen la cadena <i>bc.</i>
+        Una <i>b</i> puede estar seguida solamente de otra <i>b</i> o de una <i>a</i>, mientras que las <i>aes</i> y las
+        <i>ces</i> pueden estar seguidas de
+        cualquier símbolo. Teniendo en cuenta todas las restricciones y posibilidades, se llega a la siguiente e.r.
+        <p style="text-align: center;">(a U c U b+a)*b*</p>
+        La condición de que no aparezca la cadena <i>bc</i> significa que una <i>c</i> puede estar precedida solamente de
+        una <i>a</i> y de otra <i>c</i>. Siguiendo esta descripción, se llega a:
+        <p style="text-align: center;">c*(b U ac*)*</p>
+        <p style="color: rgb(81, 12, 3);"><b>Ejercicios.</b></p> Encontrar expresiones regulares para los lenguajes descritos a
+        continuación:
+        <ol type="1">
+
+            <li>∑ = {a, b}. Lenguaje de todas las cadenas que tienen la cadena ab un número impar de veces.</li>
+            <li>∑ = {a, b}. Lenguaje de todas las cadenas que tienen un número par de aes.</li>
+            <li>∑ = {0, 1, 2}. Lenguaje de todas las cadenas que no tienen dos ceros consecutivos.</li>
+            <li>∑ = {a, b}. Lenguaje de todas las cadenas que tienen un número impar de aes o un número par de bes.</li>
+            <li>∑ = {a, b}. Lenguaje de todas las cadenas que tienen un número par de símbolos.</li>
+            <li>∑ = {a, b, c}. Lenguaje de todas las cadenas que tienen un número impar de símbolos. </li>
+            <li>∑ = {0, 1, 2}. Lenguaje de todas las cadenas que comienzan con 1 y terminan con 2.</li>
+            <li>∑ = {a, b, c}. Lenguaje de todas las cadenas que tienen un número par de símbolos.</li>
+
+        </ol>
+        Encontrar e.rs para los siguientes lenguajes definidos sobre el alfabeto ∑ = {0, 1}.
+        <ol type="1">
+            <li>Lenguaje de todas las cadenas que contienen tres ceros consecutivos. </li>
+            <li>Lenguaje de todas las cadenas que contienen la subcadena 101. </li>
+            <li>Lenguaje de todas las cadenas de longitud múltiplo de tres. </li>
+            <li>Lenguaje de todas las cadenas que contienen cuatro ceros consecutivos. </li>
+            <li>Lenguaje de todas las cadenas de longitud par que tienen unos únicamente en las posiciones pares. </li>
+            <li>Lenguaje de todas las cadenas de longitud par ≥ 2 formadas por ceros y unos alternados. </li>
+            <li>Lenguaje de todas las cadenas que tienen por lo menos un 0 o por lo menos un 1. </li>
+            <li>Lenguaje de todas las cadenas de longitud ≥ 4. </li>
+            <li>Lenguaje de todas las cadenas cuyo quinto símbolo de izquierda a derecha es un 1. </li>
+            <li>Lenguaje de todas las cadenas que tienen a lo sumo dos unos consecutivos. </li>
+        </ol><br>
+
+    </div>
+
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

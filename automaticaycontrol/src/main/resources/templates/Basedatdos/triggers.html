@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Easiercomp</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <!--Navbar-->
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+    <div class="container">
+      <div id="logo" onload="imag()"></div>
+      <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link bg-dark" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  bg-dark" href="/contact">Contact</a>
+          </li>
+        </ul>
+
+
+        <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/">Home</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
+        <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              User
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/">Home</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+          <input type="hidden" th:name="${_csrf.parameterName}"
+                 th:value="${_csrf.token}" />
+
+          <button type="submit" class="btn btn-danger">
+            Logout
+          </button>
+        </form>
+
+        <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+          <li class="nav-item">
+            <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="/login" class="btn btn-light">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br><br>
+  <h1></h1>
+  <!--/Navbar-->
+  <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+    con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+    es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+  <!--Cards-->
+  <div id="mimenu" onload="menu()"></div>
+  <!--/Cards-->
+  <!--Content-->
+  <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Triggers en TRANSACT-SQL</strong></h1></div>
+  <div class="container">
+    <br>
+      Un trigger (o desencadenador) es una clase especial de procedimiento almacenado que se ejecuta
+      automáticamente cuando se produce un evento en el servidor de bases de datos.<br>
+      SQL Server proporciona los siguientes tipos de triggers:<br>
+      <b>Trigger DML</b>, se ejecutan cuando un usuario intenta modificar datos mediante un evento de lenguaje de
+      manipulación de datos (DML). Los eventos DML son instrucciones <b>INSERT, UPDATE o DELETE</b> de una tabla o
+      vista.<br><br>
+      <b>Trigger DDL</b>, se ejecutan en respuesta a una variedad de eventos del lenguaje de definición de datos
+      (DDL).
+      Estos eventos corresponden principalmente a instrucciones <b>CREATE, ALTER y DROP</b> de Transact-SQL, y a
+      determinados procedimientos almacenados del sistema que ejecutan operaciones de tipo DDL.<br>
+      La sintaxis general de un trigger es la siguiente:<br>
+      <br><b>SINTAXIS.</b><br>
+      <i>CREATE TRIGGER <Trigger_Name, sysname, Trigger_Name><br>
+        ON <Table_Name, sysname, Table_Name><br>
+        AFTER <Data_Modification_Statements, , INSERT,DELETE,UPDATE><br>
+        AS<br>
+        BEGIN<br>
+        -- SET NOCOUNT ON added to prevent extra result sets from<br>
+        -- interfering with SELECT statements.<br>
+        SET NOCOUNT ON;<br>
+        -- Insert statements for trigger here<br>
+        END</i><br><br>
+
+      Las instrucciones de triggers DML utilizan dos tablas especiales denominadas inserted y deleted. SQL Server
+      crea y administra automáticamente ambas tablas. La estructura de las tablas inserted y deleted es la misma
+      que tiene la tabla que ha desencadenado la ejecución del trigger.<br>
+      La primera tabla (inserted) solo está disponible en las operaciones INSERT y UPDATE y en ella están los
+      valores resultantes después de la inserción o actualización, es decir, los datos insertados. Inserted estará
+      vacía en una operación DELETE.<br>
+      En la segunda (deleted), disponible en las operaciones UPDATE y DELETE, están los valores anteriores a la
+      ejecución de la actualización o borrado, es decir, los datos que serán borrados. Deleted estará vacía en una
+      operación INSERT.<br>
+      Los datos de estas tablas no pueden ser borrados directamente.<br><br>
+      <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span> Este disparador imprime un mensaje cada vez que
+      alguien inserta, elimina o actualiza datos de la
+      tabla PRODUCT.<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+    <b>Disparador de Inserción.</b>
+    Cuando se inserta una nueva fila en una tabla, SQL Server inserta los nuevos valores en la tabla <b>INSERTED</b>
+    la
+    cual es una tabla del sistema. Esta tabla toma la misma estructura de la cual se originó el TRIGGER, de tal
+    manera que se puedan verificar los datos y ante un error podrían revertirse los cambios.<br><br>
+
+    <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span> Cree un TRIGGER que permita insertar los datos de
+    un Producto siempre y cuando el nombre del producto
+    sea único.<br>
+
+    En este ejemplo se verifica el número de productos que tienen la misma descripción y de encontrarse más de un
+    registro de productos no se deberá permitir ingresar los datos del producto. Este disparador imprime un mensaje
+    si la inserción se revierte y otro si se acepta.<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger2.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+    El resultado será:<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger3.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <b>Disparador de Eliminación.</b>
+    Cuando se elimina una fila de una tabla, SQL Server inserta los valores que fueron eliminados en la tabla
+    <b>DELETED</b> la cual es una tabla del sistema. Ésta tabla toma la misma estructura de la cual se originó el
+    TRIGGER,
+    de tal manera que se puedan verificar los datos y ante un error podrían revertirse los cambios. En este caso, la
+    reversión de los cambios significará restaurar los datos eliminados.<br><br>
+
+    <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span> Trigger que evita borrar de la tabla VENDOR
+    aquellos vendedores que hayan efectuado ventas (PRODUCT).
+    (SaleCo)<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger4.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <b>Disparador de Actualización.</b><br>
+    Cuando se actualiza una fila de una tabla, SQL Server inserta los valores antiguos en la tabla <b>DELETED</b> y
+    los
+    nuevos valores los inserta en la tabla <b>INSERTED</b>. Usando estas dos tablas se podrán verificar los datos y
+    ante un
+    error podrían revertirse los cambios.<br><br>
+
+
+    <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span> Trigger que no permite actualizar la tabla PRODUCT
+    si la cantidad PROD_PQOH o el precio PROD_PRICE son
+    iguales a cero.<br><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger5.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Elabore un trigger de actualización que arroje el mensaje
+    indicado cuando la actualización de
+    fecha sea la siguiente: (SaleCo)<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger6.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Elaborar un trigger que determine cuándo un Id a insertar
+    pertenece a un producto obsoleto.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger7.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <b>Triggers INSTEAD OF. </b>
+    Veamos el uso de estos triggers con un ejemplo que trabajará bien solo en modificaciones de una fila.<br>
+
+    Corramos el siguiente código:<br>
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger8.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    El trigger construye un mensaje con el valor Keycol de la fila que fue insertada y lo imprime. Este usa un
+    subquery para recuperar el valor keycol de la fila insertada.
+    Si insertamos una simple fila a la tabla, el trigger trabaja bien.<br><br>
+
+    <span style="color:rgb(6, 111, 95) ;"><b>INSERT INTO dbo.T1(keycol, datacol) VALUES(1, 10);</b></span><br><br>
+
+    <p style="font-family:Verdana;">Key: 1 inserted.</p><br><br>
+    Sin embargo, cuando intentamos insertar varias filas, el trigger falla debido a que cada insert hace un
+    llamado al trigger para encenderlo pero éste se podrá encender por una fila a la vez; obsérvelo.<br>
+    set nocount on<br><br>
+    <span style="color:rgb(6, 111, 95) ;"><b>INSERT INTO dbo.T1(keycol, datacol) VALUES
+                (2, 60), (3, 70), (4, 80);</b></span><br><br>
+    <p><small> 512, Nivel 16, Estado 1, Procedimiento trg_T1_i, Línea 5
+      La subconsulta ha devuelto más de un valor, lo que no es correcto cuando va a continuación de =, !=, <,
+      <=,>
+      , >= o cuando se utiliza como expresión.<br>
+      Se terminó la instrucción.</small></p><br><br>
+    Para solucionar esto, creamos un trigger INSTEAD OF con el siguiente código:<br><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger9.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    El trigger hace uso de un cursor para iterar a través de las filas con el inserted. Si ninguna fila es afectada,
+    el trigger sale. Si una fila es afectada, el trigger inserta la fila desde inserted hacia T1causando que el
+    AFTER trigger se encienda para esa fila. Si son usadas varias filas, el trigger usa un cursor para iterar a
+    través de las filas en el inserted una por una, recolectando los valores desde la fila actual en cada iteración
+    y luego insertándolos de a fila en T1. El resultado es que el trigger se enciende una vez por cada fila.<br>
+
+    Para probarlo primero lo hacemos con una sentencia insert de una fila.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger10.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Suponga que tiene una tabla con detalles de un pedido y una
+    vista que agrega cantidades a los
+    detalles del pedido por pedido. Corra el siguiente código para crear y llenar la tabla OrderDetails así como la
+    vista OrderTotals la cual calcula la suma de la cantidad de pedidos por orden.<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger11.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    Suponga que usted desea permitir la actualización de la columna totalqty y distribuir los nuevos valores entre
+    los detalles de pedido del pedido afectado en las mismas proporciones que tenían antes de la actualización.<br>
+    La tabla y la vista tienen la siguiente información antes de la actualización.<br><br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger12.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejemplo. </h5><br>
+      </div>
+    </div><br><br>
+
+    Luego de realizar una actualización con el siguiente query: <br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger13.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejercicio. </h5><br>
+      </div>
+    </div><br><br>
+
+    Elabore el código de un trigger <span style="color:rgb(0, 60, 255) ;"><b>INSTEAD OF UPDATE</b></span> que permita
+    tal actualización.<br><br>
+    <b>Más ejercicios sobre triggers.</b><br><br>
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Elabore un trigger que después de la consulta arroje el
+    resultado indicado.<br>
+
+    <span style="color:rgb(0, 60, 255) ;">DELETE PRODUCT</span><br>
+    <p><i><small>Solo puede elemininar un registro a la vez
+      Mens. 3609, Nivel 16, Estado 1, Línea 1
+      La transacción terminó en el desencadenador. Se anuló el lote.</small></i></p>
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Elabore un trigger que después de eliminar un producto, lo
+    inserte en la tabla obsoletos.<br>
+
+
+    <span style="color:red ;"><b>Ejercicio.</b></span> Elabore un trigger que aroje el error indicado después de la consulta:<br>
+
+    <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+      <div class="main-header ">
+        <img src="/images/imgDBII/trigger14.jpg" class="card-img-top" alt="...">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Ejercicio. </h5><br>
+      </div>
+    </div><br><br>
+  </div>
+  <!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Laboratorios</strong></h1></div>
+    <div class="container py-5">
+        <h4>Práctica #1.</h4>
+        Elaborar un programa en Python que realice las siguientes tareas:
+
+        <ol type="1">
+            <b>Cadenas.</b>
+            <li>Permita entrar una cadena por teclado: cadena_1.</li>
+            <li>Entrar una segunda cadena: cadena_2 y determinar si la cadena_1 está contenida o es igual a la cadena_2</li>
+            <li>Imprimir el módulo de ambas cadenas.</li>
+            <li>Invertir ambas cadenas.</li>
+            <li>Imprimir el resultado de la expresión: (((cadena_1)<sup>I</sup>)<sup>2</sup>((cadena_2)<sup>3</sup>)<sup>I</sup>)<sup>I</sup></li>
+            <li>Imprimir todos los prefijos y sufijos de ambas cadenas.</li>
+        </ol>
+        <ol type="1">
+            <b>Lenguajes.</b>
+            <li>Ingresando dos cadenas más, agrúpelas con las anteriores creando dos lenguajes diferentes A y B.</li>
+            <li>Imprima A.B</li>
+            <li>Imprima (A.B)<sup>2</sup></li>
+            <li>Imprima A<sup>3</sup>.B</li>
+            <li>Imprima A<sup>c</sup> ∩ B</li>
+            <li>Imprima ((A<sup>c</sup> ∩ B) U (B<sup>c</sup> ∩ A)) ∩ A.</li>
+        </ol>
+        <hr>
+        <h4>Práctica #2.</h4>
+        <ol type="1">
+            <li>
+                Elaborar un programa en Python que permita simular el comportamiento del autómata indicado en esta figura. El programa deberá reconocer el lenguaje del autómata.
+                <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+                    <div class="main-header ">
+                        <img src="/images/imAt/LabDos.jpg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                    </div>
+                </div><br>
+            </li><br>
+            <li>
+                Modificar y simular el comportamiento del autómata anterior de tal
+                modo que se reconozca la cadena 10 seguida de la cadena 01.
+            </li>
+        </ol>
+        <b>Fecha de sustentación abril 2.</b> <br>
+        Grupo que tenga tres presentan los dos autómatas con animación: mostrará el camino
+        del autómata y mostrará un círculo en verde cuando se llegue a un
+        estado de aceptación, cuando no, estará en rojo.
+        <br>
+        En el informe se deberá incluir la definición formal de ambos autómatas.
+        <hr>
+        <h4>Práctica #3:</h4>
+        <ul>
+            <li><b>Parte I.</b> <br>
+                Taller #1 de la pestaña de talleres. Vale la mitad de la práctica.
+            </li>
+            <li><b>Parte II.</b> <br>
+                Quiz de sustentación el día de la práctica. Vale la otra mitad.
+        </ul>
+
+        <hr>
+        <!--
+        <h4>Práctica #1.</h4>
+        Elaborar un programa en Python que permita determinar si una subcadena entrada por teclado
+        se encuentra o no en un archivo pdf previamente cargado.
+        Se deberá implementar una ventana que permita cargar la subcadena a buscar
+        y en la cual también aparecerá el número de veces que esta se encuentra.
+        Se deberá mostrar la subcadena sobre la palabra en el archivo pdf.
+        Para la revisión se creará un archivo pdf pequeño con el texto de <i><b>lorem</b></i> solo con este fin. <br><br>
+
+        El objetivo de la práctica es verificar el manejo de cadenas y archivos en el lenguaje de programación Python.
+
+
+        Las prácticas se pueden hacer en parejas.
+        <br>
+        <hr>
+
+
+        <h4>Práctica #3:</h4>
+        <ol type="1">
+            <li>Elaborar los ejercicios propuestos en el taller #7 del enlace Talleres.
+                Se envía archivo pdf al correo. Tiempo límite: (presenciales, Septiembre 18. Virtuales, Septiembre 20)<br>
+            </li>
+            <li>Quiz sobre los ejercicios el día de la práctica.</li>
+        </ol>
+        <hr>
+
+        <h4>Práctica #4:</h4>
+        For this practice you must write a short article about how does AI affect programming. You should consider at least
+        three different view points.<br><br>
+
+        The article must have the structure of a scientific article. I recommend LaText or another similar tool for
+        this.<br><br>
+
+        At the practice's day (presential, September 25. Virtual, September 27) I will review it in the edition tool
+        selected. Be careful with the
+        grammar.<br>
+        <b>Notes.</b>
+        <ol type="1">
+            <li>The article's language is English.</li>
+            <li>You can't use ChatGPT or another similar tool.</li>
+        </ol>
+        <hr>
+        <h4>Práctica #5.</h4>
+        <h5>Autómatas de pila</h5>
+        Elaborar un programa que permita la simulación computacional de un
+        autómata de pila que reconozca el lenguaje <i>L = {a<sup>n</sup>w<sup>m</sup>w<sup>-m</sup>d<sup>n</sup> con n,
+            m>=0, w = (b + c)<sup>*</sup> }</i>. Se deberá
+        incluir animación gráfica de los estados (con indicador de <i> n</i> y <i>m</i>) y el contenido de la pila. Las
+        cadenas a analizar se
+        deberán
+        poder entrar por teclado. Presentación con informe: teoría, objetivo y conclusiones.<br><br>
+        Fecha de entrega: presenciales octubre 9, virtuales octubre 11.
+        <hr>
+        <h4>Práctica #6.</h4>
+        <h5>Gramáticas Independientes del Contexto.</h5>
+        <p>Para esta práctica se harán los ejercicios del <b>taller #8</b>. <br>
+            Fecha límite de etrega : Presenciales (30 de octubre); virtuales (01 de noviembre)</p>
+        <hr>
+        <h4>Práctica #7.</h4>
+        Presenciales: Noviembre 6, virtuales: Noviembre 8
+        <h6>Parte 1. 30%</h6>
+        Realizar una simplificación completa (los cuatro algoritmos) de las gramáticas presentadas en los ejercicios de las
+        secciones 4.8, 4.9 y 4.10 del libro de Rodrigo D. Castro.<br><br>
+
+        <h6>Parte 2. 70%</h6>
+        Elaborar un analizador sintáctico que responda a la sintaxis de una calculadora simple.<br>
+        Además de admitir los tokens correctos, presentará también el resultado de la operación.
+        Cuando ocurra un error de sintaxis deberá indicar cuál es el error. <br>
+        Lenguajes: C, C++, C#, Javascript, Java, Kotlin o Python.<br>
+        Sobre esta práctica se envía informe escrito bien presentado y documentado. El
+        informe sólo se recibe a quienes previamente hayan sustentado la práctica.<br>
+        <hr>
+        <h4>Práctica #8.</h4>
+        Presenciales: Noviembre 13, virtuales: Noviembre 15 <br>
+        Para esta práctica se hará el ejercicio presentado en el <b>taller #10.</b>
+        <hr>
+        <h4>Prácticas # 9 y 10. <br>Reconocimiento Ascendente.</h4>
+        Presenciales: Noviembre 20, virtuales: Noviembre 22 <br>
+        Elaborar en Python un prototipo de programa de reconocimiento ascendente que permita realizar
+        el reconocimiento de cadenas tales como: <i><b>var = 5 + 7*(3 + 3/4)</b></i>. Tenga en cuenta que esta no será
+        la única cadena que deberá reconocer. <hr>
+
+        Elaborar un programa que permita la simulación de un AFD que realice el siguiente reconocimiento:
+        cualquier cadena de ceros y unos tal que el número de ceros sea par y el de unos sea impar. Por ejemplo: 001, 100,
+        00111, 1110011.<br>
+
+        El programa debe ser tal que la transición de estados se dé durante la liberación de la tecla correspondiente al
+        dígito 0 ó 1.<br>
+
+        Se presenta cuaderno en Colab con el código y un ejemplo de la simulación.<br>
+        Objetivos, explicación y conclusiones.<br>
+
+        Se sustenta en la siguiente práctica.
+        <br><br>-->
+        <!--<h4>Práctica #3.</h4>
+        Para esta práctica se realizará el <b>taller #1</b>. También se hace por parejas. <br>
+        La sustentación se hará mediante un quiz individual promediable con la práctica y que se hará a la misma hora de
+        esta. La fecha de entrega
+        es el día de la práctica. Se envía archivo pdf. <br><br>
+        <hr>
+        <h4>Práctica #5.</h4>
+        Realizar la implementación computacional de una gramática que permita realizar la misma tarea de la práctica #2.a.
+        Quiere decir que la expresión regular correspondiente a tal autómata deberá poder ser generada por la gramática aquí
+        implementada. Tanto el autómata como la gramática generarán el mismo lenguaje. Comprobar el funcionamiento generando
+        un lenguaje con al menos diez palabras diferentes.<br><br>
+        <hr>
+        <h4>Práctica #6.</h4>
+        <h5>Autómatas de pila</h5>
+        Elaborar un programa que permita la simulación computacional de un
+        autómata de pila que reconozca el lenguaje <i>L = {a<sup>n</sup>bc<sup>n</sup>d, n>=0}</i>. Se deberá
+        incluir animación gráfica de los estados (con indicador de n) y el contenido de la pila. Las cadenas a analizar se
+        deberán
+        poder entrar por teclado. Presentación con informe: teoría, objetivo y conclusiones.<br><br>
+        <hr>
+
+        <h4>Práctica #7.</h4>
+        <h5>Gramáticas con atributos.</h5>
+        <p>Teniendo en cuenta la guía suministrada en la página de inicio, elabore los ejercicios allí presentados. En la misma página puede consultar información adicional que podría ser útil para la solución de estos.</p><br>
+       --> <!--Práctica grupal a realizarse en clase: ejercicios del capítulo.<br>
+    Se suministran via e-mail solo a estudiantes activos. Horario de clase. <br><br>
+    Ejercicios.
+    <ol type="1">
+        <li>
+            En cada uno de los ejemplos planteados en la sección 7.1, se deberá realizar e indicar cuál sería el
+            recorrido del árbol asociado (haciéndolo o no) para un ejemplo de cadena generada por tal
+            gramática. Dar el ejemplo de la cadena a analizar.
+        </li>
+        <li>
+            Del tema de la sección 7.4, realizar la parte que se indica al final: "A partir de la
+            gramática anterior y sin modificarla, obtener una gramática de atributos que realice
+            dichas comprobaciones, dando un mensaje de error en la producción donde se detecte
+            un error semántico. Explicar para qué se utiliza cada uno de los atributos utilizados
+            y si son heredados o sintetizados".
+        </li>
+    </ol>
+
+    <hr>
+
+    <h4>Práctica #8.</h4>
+    <h6>Parte 1. (24 de abril) 30%</h6>
+    Realizar una simplificación completa (los cuatro algoritmos) de las gramáticas presentadas en los ejercicios de las secciones 4.8, 4.9 y 4.10 del libro de Rodrigo D. Castro.<br><br>
+
+    <h6>Parte 2. (08 de mayo) 70%</h6>
+    Elaborar un analizador sintáctico que responda a la sintaxis de una calculadora simple.<br>
+    Además de admitir los tokens correctos, presentará también el resultado de la operación.
+    Cuando ocurra un error de sintaxis deberá indicar cuál es el error. <br>
+    Lenguajes: C, C++, C#, Javascript, Java, Kotlin o Python.<br>
+    Sobre esta práctica se envía informe escrito bien presentado y documentado. El
+    informe sólo se recibe a quienes previamente hayan sustentado la práctica.<br><br>
+
+    <hr>
+
+    <h4>Prácticas # 9 y 10. <br>Reconocimiento Ascendente.</h4>
+    Elaborar en Python un prototipo de programa de reconocimiento ascendente que permita realizar
+    el reconocimiento de cadenas como: <i><b>val = 5 + 7*(3 + 3/4)</b></i>. Un ejemplo de este tipo de reconocedor
+    sintáctico puede ser encontrado
+    <a href="https://www.youtube.com/watch?v=No3R6jVC_4Y&list=PL-fKQ_B8-UNOszHNCffjV3DonsLwjjLvt&index=1" target="iframe_b"> aquí.</a>
+
+<br>
+    La parte que se deberá automatizar será la correspondiente a la pila. Lo correspondiente
+    a la simplificación de la gramática así como la configuración de la tabla
+    se realiza de forma manual y permanecerá fija para una gramática dada.
+    Después que se haya realizado la programación del algoritmo, se deberá poder
+    reconocer cualquier cadena que corresponda a la gramática. <br>
+    En las sesiones correspondientes al laboratorio se revisará el avance de la programación empezando por la programación del autómata.
+    <hr>-->
+
+        <!--<h4>Práctica #10.</h4>
+
+     <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+        <div class="main-header ">
+            <iframe width="630" height="518" src="https://www.youtube.com/embed/No3R6jVC_4Y?si=v2QyxsBCwaKn_qUT">
+            </iframe>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+        </div>
+      </div>
+
+    -->
+    </div>
+
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

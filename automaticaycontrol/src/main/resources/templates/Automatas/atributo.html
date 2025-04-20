@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Gramáticas con atributos</strong></h1></div>
+    <div class="container py-5">
+        Las gramáticas regulares son adecuadas para representar las características morfológicas de los elementos básicos de
+        un lenguaje de programación, y las gramáticas independientes del contexto lo son para representar las
+        características sintácticas. Sin embargo, dichas gramáticas no son lo suficientemente potentes como para
+        representar los aspectos semánticos. En este caso, las gramáticas atribuidas juegan un papel importante.<br><br>
+        <b>Conceptos de semántica y de gramática atribuida.</b>
+        Para que un programa esté correctamente escrito, este debe ser coherente tanto en la sintaxis como en la semántica.
+        En cuanto a la semántica se pueden distinguir dos aspectos: <b>estático y dinámico.</b><br>
+        <b>La semántica estática</b> se ocupa de las condiciones que deben cumplir las construcciones de un programa para
+        que su
+        significado sea correcto.<br><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Una sentencia de asignación como <i>A ← 5 + B</i> es correcta desde
+        el punto de vista léxico y sintáctico, pero
+        para que sea semánticamente correcta, la variable <i>B</i> debe ser de un tipo tal que se le pueda aplicar el
+        operador + y,
+        además, el valor resultante de evaluar la expresión <i>5 + B</i> debe ser de un tipo compatible con el de la
+        variable sobre
+        la que se efectúa la asignación (<i>A</i>).<br>
+        La <b>semántica dinámica</b> se ocupa del significado de una construcción con objeto de que pueda ser traducida a
+        código
+        directamente ejecutable por la máquina.<br><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> A partir de una sentencia de asignación <i>A ← expresión</i>, debe
+        generarse código que permita:
+        <ul>
+            <li>Obtener la dirección de memoria de la variable <i>V</i>.</li>
+            <li>Calcular el valor de la expresión asignada.</li>
+            <li>Almacenar el valor calculado en el paso 2 en la dirección de memoria obtenida en el paso 1.</li>
+        </ul>
+
+        Las gramáticas atribuidas pueden considerarse como una ampliación de las GICs que tienen por objeto dotar a la
+        gramática de capacidad para especificar correctamente la semántica de un lenguaje de programación.<br>
+        <br><b>Definición (Gramática atribuida).</b>
+        Si una GIC se define como
+        <p style="text-align: center;">G ={∑<sub>T</sub>, ∑<sub>N</sub>, S, P},</p>
+        la gramática atribuida se define como:
+        <p style="text-align: center;">GA ={G,AS,FS}</p>
+        donde <i>AS</i> son los atributos semánticos asociados a los símbolos de la gramática.
+        <i>FS</i> son las funciones semánticas asociadas a las producciones de la gramática.<br>
+        De la misma forma que <i>G</i> permite definir los aspectos sintácticos de un lenguaje, <i>GA</i> permite definir
+        los aspectos
+        semánticos del mismo.<br>
+        En las gramáticas atribuidas, los símbolos pueden tener asociados varios atributos tales como tipo (que puede ser
+        real, entero, lógico, etc.) o valor (que depende del tipo de la variable). Osea, la variable <i>X</i> podría tener:
+        <i>X.tipo</i> y <i>X.valor</i> y podría asignársele por ejemplo: <i>X.tipo = entero, X.valor = 236.</i><br><br>
+        Las funciones semánticas definen las relaciones que se cumplen entre los atributos de los distintos símbolos de la
+        gramática. Estas relaciones permiten calcular los valores de unos atributos en función de los valores de otros.<br>
+        <br><b>Atributos heredados y atributos sintetizados.</b><br>
+        Dado que una producción se puede representar como un árbol, la producción <i>A → xyz</i> se puede representar como
+        tal. En
+        este caso se puede decir que <i>A</i> es el nodo padre de <i>x</i>, o también que <i>x</i> es un nodo hermano de
+        <i>y</i>. De acuerdo con esta
+        terminología se pueden distinguir dos tipos de atributos: <b>atributos sintetizados y atributos heredados</b>. El
+        valor de
+        los atributos sintetizados se calcula en función de los atributos de los nodos hijos. El valor de los atributos
+        heredados se calcula en función de los nodos hermanos y/o nodo padre.<br><br>
+        <b>Gramáticas S-atribuidas y L-atribuidas.</b><br>
+        Las <b>gramáticas S-atribuidas</b> son aquellas cuyos símbolos solo contienen atributos sintetizados.
+        <br><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Gramática S-atribuida utilizada para generar expresiones
+        aritméticas. Por simplicidad se considerará que
+        las únicas operaciones que se pueden realizar son la suma y la multiplicación. Los símbolos <i>expr</i> y
+        <i>num</i>, que
+        representan expresiones aritméticas y los números que aparecen en ellas respectivamente tienen ambos un atributo
+        sintetizado llamado valor, que permite calcular el valor de las expresiones aritméticas analizadas. El símbolo
+        <i>num</i> se
+        considera terminal y su valor se obtiene del análisis léxico.<br>
+        Las acciones semánticas de estas producciones permitirán obtener el valor de una expresión aritmética a partir de
+        los valores de expresiones más básicas.
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri1.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Suponiendo que la expresión a producir sea: <i>9 + 7*5</i> el árbol generado sería:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri2.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        En la medida que el árbol se construye de manera ascendente, se calculan los atributos sintetizados a partir de las
+        hojas. Finalmente en la raíz se obtendrá el valor de la expresión.<br><br>
+        <b>Gramáticas L-atribuidas.</b>
+        Estas gramáticas poseen atributos sintetizados y atributos heredados, pero a los heredados se les imponen algunas
+        restricciones con objeto de facilitar el diseño de un algoritmo que permita evaluar todos los atributos de la
+        gramática.<br><br>
+        Los atributos heredados solo pueden depender de los atributos del padre o de cualquier atributo de sus nodos
+        hermanos, siempre que esos nodos hermanos aparezcan a la izquierda de la producción, es decir, si se tiene una
+        producción <i>A → x<sub>1</sub>x<sub>2</sub>…x<sub>n</sub>.</i><br>
+        Los atributos heredados de <i>x<sub>i</sub></i> solo pueden calcularse en función de:
+        <ol type="1">
+            <li>Los atributos heredados de <i></i>A.</li>
+            <li>Cualquier atributo (heredado o sintetizado) de <i>x<sub>1</sub>x<sub>2</sub>…x<sub>i-1</sub></i></li>
+        </ol>
+        Un atributo heredado es uno cuyo valor en un nodo de un árbol de análisis sintáctico está definido a partir de los
+        atributos en el padre y/o de los hermanos de dicho nodo. Los atributos heredados sirven para expresar la dependencia
+        de una construcción en un lenguaje de programación en el contexto en el que aparece. Por ejemplo, se puede utilizar
+        un atributo heredado para comprobar si un identificador aparece en el lado izquierdo o en el derecho de una
+        asignación para decidir si se necesita la dirección o el valor del identificador. Aunque siempre es posible
+        reescribir una definición dirigida por sintaxis para que solo se utilicen atributos sintetizados, a veces es más
+        natural utilizar definiciones dirigidas por la sintaxis con atributos heredados.<br>
+        En el siguiente ejemplo, un atributo heredado distribuye la información sobre los tipos de los distintos
+        identificadores de una declaración.
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p>Una declaración generada por el terminal <i>D</i> en la definición
+        dirigida por sintaxis en la siguiente figura,
+        consta de la palabra clave <i>INT</i> o <i>REA</i>L, seguida de una lista de identificadores.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri3.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        El no terminal <i>T</i> tiene un atributo sintetizado <i>tipo</i>, cuyo valor viene determinado por la palabra clave
+        de la
+        declaración. La regla semántica <i>L.her = T.tipo</i>, asociada con la regla de producción <i>D → T|L</i>, asigna al
+        atributo
+        heredado <i>L.her</i>, el tipo de la declaración. Entonces las reglas pasan este tipo por el árbol de análisis
+        sintáctico
+        utilizando el atributo heredado <i>L.her</i>. Las reglas asociadas con las producciones de <i>L</i> llaman al
+        procedimiento
+        <i>añadetipo</i> para añadir el tipo de cada identificador a su entrada en la tabla de símbolos (apuntada por el
+        atributo
+        <i>ptr_tds</i>).
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri4.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        En la figura se muestra un árbol de análisis sintáctico con anotaciones para la frase <i> real id<sub>1</sub>,
+        id<sub>2</sub>, id<sub>3</sub>.</i> El tipo de
+        <i>L.her</i> en los tres nodos de <i>L</i> da el tipo de los identificadores <i>id1, id2, id3.</i> Estos tipos se
+        determinan calculando
+        el tipo del atributo <i>T.tipo</i> en el hijo izquierdo de la raíz y evaluando después <i>L.her</i> de forma
+        descendente en los
+        tres nodos de <i>L</i> en el subárbol derecho de la raíz. En cada nodo de <i>L</i> también se llama al procedimiento
+        <i>añadetipo</i>
+        para insertar en la tabla de símbolos el hecho de que el identificador en el hijo derecho de este nodo tiene tipo
+        <i>real.</i><br><br>
+        <b>Algoritmo para la gramática L-atribuida.</b>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri5.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> La siguiente gramática L-atribuida permite generar una declaración
+        de variables siguiendo las pautas del
+        lenguaje C. Los símbolos no terminales <i>D, T</i> y <i>L</i> representan los conceptos de declaración, tipo y lista
+        de
+        identificadores, respectivamente. En este ejemplo, los atributos que tienen los diferentes símbolos gramaticales
+        almacenan información que representa el tipo de las variables que se van a definir. Además, el símbolo terminal
+        <i>id</i>
+        tiene un atributo sintetizado que permite conocer el nombre de la variable y que habrá sido calculado en el proceso
+        de análisis léxico.
+        La semántica de estas instrucciones de declaración debe asociar a cada variable su tipo correspondiente y además
+        debe almacenar, utilizando el procedimiento <i>añadir_tabla</i>, la información asociada a cada variable en la tabla
+        de
+        símbolos del compilador.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri7.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Los atributos de <i>L</i> y de <i>ID</i> son heredados, por eso se llaman <i>tipoh</i>. El atributo <i>T</i> es
+        sintetizado y se calcula en
+        aquellas producciones que tienen a <i>T</i> en la parte izquierda (la segunda y la tercera).
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri6.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        En la figura se muestra el árbol de derivación de una declaración de variables como: <i><b>int a, b, c</b></i>. La
+        numeración
+        indica el orden en el que se realizarían las diferentes acciones semánticas de acuerdo con el algoritmo anterior.<br>
+
+
+        <br><p style="color: rgb(66, 9, 6);"><b>Ejercicio.</b></p> Dada la siguiente gramática atribuida:
+        <br>∑<sub>T</sub> = {id, cte, =, +}
+        <br>∑<sub>N</sub> = {asig, expr}
+        <br>S = {asig}
+
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/atri8.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        ¿Es esta semántica S-atribuida o L-atribuida?
+
+    </div>
+
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

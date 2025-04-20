@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+<div id="micabezera" onload="cabezera()"></div>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/static" style="color: black">Easiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/static">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/static">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Client
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/static">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-primary">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--body-->
+    <div class="table-responsive">
+        <table class="table align-top" style="border: 1px">
+            <tbody>
+            <tr>
+                <td style="width: 25%">
+                    <div id="mimenu" onload="menu()"></div>
+                </td>
+                <td style="width: 70%">
+
+                    <h4>Ciclo de vida del software</h4>
+                    <b>Fuente: </b>
+                    <i><a href="https://evotic.es/software-a-medida/ciclo-de-vida-del-software/">evotic: </a>
+                        https://evotic.es/software-a-medida/ciclo-de-vida-del-software/</i>
+
+
+                    <hr>
+                    <h4>Ciclo de vida clásico.</h4>
+                    Conocer el ciclo de vida de un proyecto permite controlar mejor sus fases y reducir situaciones innecesarias. En
+                    cualquier proyecto, las fases son las mismas, aunque cada proyecto requiere su propio conjunto único de procesos.
+                    Normalmente, encontramos una fase inicial, un proceso de desarrollo y un producto final. A este patrón se le
+                    denomina ciclo de vida de un software y consta de las siguientes etapas:
+                    <ol>
+                        <li><b>Planificación:</b>
+                            <ol type="a">
+                                <li>
+                                    Esta será una de las primeras fases, en la cual, se trazan objetivos y se valoran las necesidades
+                                    del proyecto en cuestión. Las tareas iniciales consisten en realizar un estudio de viabilidad,
+                                    analizar los riesgos que puede comportar el proyecto y planificar todas las fases posteriores. A
+                                    continuación, se documentan en detalle las funcionalidades, características y objetivos que debe
+                                    cumplir el ciclo de vida del proyecto.
+                                </li>
+                                <li>Analizar los riesgos nos puede ayudar a estar preparados para cualquier contratiempo.</li>
+                                <li>El estudio de viabilidad nos permite evaluar los aspectos técnicos, financieros y legales, para
+                                    poder determinar si el proyecto podrá ser completado con los recursos disponibles.
+                                </li>
+                                <li>Planificar el proyecto fase por fase nos permite llevar a cabo su desarrollo con éxito.</li>
+                            </ol>
+                        </li>
+                        <li><b>Análisis.</b>
+                            En la fase de análisis de un proyecto definimos qué funciones ejecutará el software y cuáles serán sus
+                            características específicas. Este aspecto es clave a la hora de optimizar la asignación de costos y
+                            determinar la envergadura del proyecto. <br>
+
+                            La asignación de costos es una de las tareas más complejas dentro de un proyecto de desarrollo de software,
+                            ya que se debe estimar al inicio, cuando menos conocemos el proyecto y mayor es el margen de error.
+                            Afortunadamente, la experiencia en proyectos similares y la fragmentación del proyecto por tareas nos
+                            facilita mucho el hecho de presupuestar adecuadamente.
+                        </li>
+                        <li><b>Diseño y estructura.</b>
+                            Una vez que disponemos de toda la información que precisa nuestro proyecto, estudiaremos las posibles
+                            alternativas y estableceremos la estructura de la base de datos, la lógica del flujo de datos y la interfaz
+                            de usuario de la aplicación, esto es:
+                            <ol type="a">
+                                <li><b>Estructura de la base de datos.</b> Este proceso es clave en el ciclo de vida de un software.
+                                    Tomar
+                                    decisiones
+                                    adecuadas facilitará la implementación del proyecto. El acceso a los datos almacenados permitirá al
+                                    usuario
+                                    poder gestionar la información que precisa.
+                                </li>
+                                <li><b>Lógica del flujo de datos.</b> Crear un diagrama de flujo de datos, nos permite trazar el flujo
+                                    de
+                                    información
+                                    de cualquier proceso o sistema. Estos diagramas nos dan información detallada de nuestro proyecto de
+                                    forma
+                                    visual.
+                                </li>
+                                <li> <b>Interfaz de usuario.</b> Diseñar un entorno intuitivo y fácil de usar, es otro elemento clave
+                                    para un
+                                    proyecto
+                                    de desarrollo de software. Que el usuario sea capaz de acceder a los datos y gestionar el aplicativo
+                                    de
+                                    manera ágil, es un requisito indispensable.
+                                </li>
+                            </ol>
+
+
+                        </li>
+                        <li><b>Desarrollo:</b>
+                            Cuando ya hemos definido la estructura de nuestro software, llega el momento de empezar con la programación.
+                            Escoger el lenguaje de programación adecuado a nuestro proyecto y disponer de un equipo de programadores
+                            expertos es fundamental. Seguir el código de buenas prácticas permitirá que nuestro proyecto sea fácilmente
+                            escalable.
+                        </li>
+                        <li><b>Pruebas.</b><br>
+                            Una vez terminado el proceso de desarrollo empieza el testeo y la fase de pruebas de la aplicación. En esta
+                            etapa ponemos a prueba los errores que hayan podido aparecer en las etapas anteriores. Es una fase de
+                            corrección, eliminación y perfeccionamiento de posibles fallos, no previsto en los pasos previos.
+                        </li>
+                        <li><b>Mantenimiento.</b>
+                            En este periodo el software ya está en funcionamiento. Con el tiempo alguna función puede quedar obsoleta,
+                            pueden detectarse algunas limitaciones o que aparezcan propuestas que mejoren la estabilidad del proyecto.
+                        </li>
+                    </ol>
+                    <hr>
+                    <h4>Evalúa tu comprensión del tema:</h4>
+                    <h5>Selecciona las parejas según su relación. Después de seleccionadas se te notificará éxito o fracaso.</h5>
+                    <hr>
+
+                    <!-- RadioButton -->
+                    <div class="container">
+                        <table class="table">
+                            <thead>
+
+                            <tr>
+                                <th scope="col">Etapa</th>
+                                <th scope="col">Actividad</th>
+                            </tr>
+                            </thead>
+                            <tbody style="font-size:larger;">
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan1" >
+                                        <label class="form-check-label" for="rbplan1">
+                                            <b>Planificación</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <b>Análisis</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan3" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <b>Diseño</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan4" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <b>Desarrollo</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan5" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <b>Pruebas</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault1" onclick="saludo()"
+                                               id="rbplan6" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <b>Mantenimiento</b>
+                                        </label>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" onclick="refrescar()">Refrescar</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            El cliente quiere que se le haga una mejora incluyéndole una nueva funcionalidad
+                                            que no fue contemplada inicialmente.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Asignamos funciones a cada uno de los programadores indicándoles claramente
+                                            cuál será la información recibida y la que deberá devolver.
+
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan3" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            En un UML hacemos una repartición de las diferentes etapas de la solución
+                                            y la interacción entre ellas.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan4" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Hacemos una revisión de factibilidad con la cual se determinará si se
+                                            acepta o se rechaza. Podría ser la etapa más crítica.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan5" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Elaboramos una tarjeta que contenga la información de las necesidades de la solución
+                                            informática que se quiere desarrollar preferiblemente con un esbozo de ésta.
+
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="saludo()"
+                                               id="rdplan6" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Contactamos un ingeniero externo para que
+                                            verifique la funcionalidad y coherencia de cada uno de los módulos
+                                            que pueda tener el proyecto.
+                                        </label>
+                                    </div>
+                                    <hr>
+                                    <div id="disp1" style="color:rgb(176, 5, 5); font-size:24px; font-weight:bold;">
+                                    </div>
+                                    <div id="disp2" style="color:green; font-size:24px; font-weight:bold;">
+                                    </div>
+                                    <div id="disp3" style="color:rgb(3, 35, 176); font-size:24px; font-weight:bold;">
+                                    </div>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div><br><br>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--body-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Transacciones en TRANSACT SQL</strong></h1></div>
+    <div class="container">
+            Una transacción es un conjunto de operaciones <b>TRANSACT SQL</b> que se ejecutan como un único bloque,
+            es decir, si falla una operación <b>TRANSACT SQL </b> fallan todas. Si una transacción tiene éxito,
+            todas las modificaciones de los datos realizadas durante la transacción se confirman y
+            se convierten en una parte permanente de la base de datos.
+            Si una transacción encuentra errores y debe cancelarse o revertirse, se borran todas las modificaciones de
+            los datos.<br><br>
+
+            Para agrupar varias sentencias <b>TRANSACT SQL</b> en una única transacción, se dispone de los siguientes
+            métodos:<br><br>
+            <b>• Transacciones explícitas:</b> Cada transacción se inicia explícitamente con la instrucción <b>BEGIN
+            TRANSACTION</b>
+            y se termina explícitamente con una instrucción <b>COMMIT o ROLLBACK.</b><br><br>
+            <b>• Transacciones implícitas:</b> Se inicia automáticamente una nueva transacción cuando se ejecuta una
+            instrucción
+            que realiza modificaciones en los datos, pero cada transacción se completa explícitamente con una
+            instrucción <b>COMMIT o ROLLBACK.</b><br><br>
+
+            <b>Sintaxis para el control de las transacciones.</b><br><br>
+            <i>
+                BEGIN TRANSACTION -- O solo BEGIN TRAN<br>
+                BEGIN TRY<br>
+                --Bloque de instrucciones a ejecutarse<br>
+                COMMIT TRANSACTION -- O solo COMMIT<br>
+                END TRY<br>
+                BEGIN CATCH<br>
+                ROLLBACK TRANSACTION -- O solo ROLLBACK<br>
+                PRINT 'Se ha producido un error!'<br>
+                END CATCH
+            </i><br><br>
+
+            <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo. Parte A.</b></span><br>
+            Creamos dos tablas y a ambas le insertamos información por medio de una transacción.
+            Hasta aquí sin problemas.
+
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img1.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br>
+
+        <span style="color:rgb(6, 111, 95) ;"><b>Parte B.</b></span><br>
+        La transacción tiene un error de tipo de datos en el insert a la tabla 2.
+
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img2.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br>
+
+        A pesar de que el insert a la tabla 1 estaba antes de que se presentara el error, ésta tabla no se actualizó o
+        en caso de haberse hecho,
+        se revirtieron los cambios con el ROLLBACK. <br><br>
+        Para activar-desactivar el modo de transacciones implícitas se debe ejecutar la siguiente instrucción.<br><br>
+
+        <span style="color:rgb(13, 55, 123) ;"><b>SET IMPLICIT_TRANSACTIONS ON</b></span>
+        <b>-Se activa el modo de transacciones implícitas.</b><br><br>
+        <span style="color:rgb(13, 55, 123) ;"><b>SET IMPLICIT_TRANSACTIONS OFF</b></span>
+        <b>-Se desactiva el modo de transacciones implícitas.</b><br><br>
+
+        <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span><br>
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img3.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br>
+
+        La transacción sigue activa hasta que emita una instrucción <b>COMMIT</b> o <b>ROLLBACK.</b> Una vez que la
+        primera transacción se ha confirmado o revertido,
+        se inicia automáticamente una nueva transacción la siguiente vez que la conexión ejecuta una instrucción para
+        modificar datos.<br><br>
+        La conexión continúa generando transacciones implícitas hasta que se desactiva el modo de transacciones
+        implícitas.<br><br>
+
+        <h4><b>Transacciones anidadas.</b></h4><br>
+        Podemos anidar varias transacciones. Cuando anidamos varias transacciones la instrucción COMMIT afectará a la
+        última transacción abierta, pero ROLLBACK afectará a todas las transacciones abiertas.<br><br>
+        Un hecho a tener en cuenta, es que, si hacemos ROLLBACK de la transacción superior se desharán también los
+        cambios de todas las transacciones internas, aunque hayamos realizado COMMIT de ellas.<br>
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img4.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br><br>
+
+        <span style="color:rgb(6, 111, 95) ;"><b>Ejemplo.</b></span><br>
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img5.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br><br>
+
+        <span style="color:rgb(228, 21, 38) ;"><b>Ejercicio.</b></span>
+        Dada la siguiente transacción, realice los cambios necesarios para que se efectúen los cambios indicados sin
+        errores. Modo implícito y explícito.<br>
+        <div class="card container p-4 w-70" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imgDBII/img6.jpg" class="card-img-top" alt="...">
+            </div>
+        </div><br>
+
+        <span style="color:rgb(228, 21, 38) ;"><b>Ejercicio.</b></span>
+        Realice un ejemplo de transacciones anidadas. <br><br>
+
+        <span style="color:rgb(228, 21, 38) ;"><b>Ejercicio.</b></span>
+        Realice un ejemplo de transacción implícita anidada. <br><br>
+        <span style="color:rgb(228, 21, 38) ;"><b>Ejercicio.</b></span>
+        Elaborar la(s) consulta(s) necesaria(s) para comprar un artículo de la base de datos SaleCoAdv cuyo archivo se
+        anexa. La consulta deberá recibir el código del producto a comprar (PROD_CODE), la cantidad de estos, un código
+        de cliente (CUST_NUMBER), nombre y apellido del cliente (CUS_LNAME y CUS_FNAME) y el valor a cancelar. Si la
+        cantidad a comprar deja un stock en cero no se realiza la venta y se desplegará un mensaje de error que diga que
+        no existe esa cantidad de productos; el stock mínimo será de uno (la muestra). Si el valor a cancelar es menor
+        que el costo de los productos, tampoco se realizará la venta y saldrá un mensaje que diga que falta plata.
+
+        Si se realiza la venta se deben dar los siguientes sucesos:
+        <ul>
+            <li>
+                La tabla productos se actualizará con la nueva cantidad de productos comprados. (PROD_QOH).
+            </li>
+            <li>
+                Se generará una factura para el cliente con el valor de la compra (ACC_TRANS).
+            </li>
+            <li>
+                Si el cliente existe, se actualizará su balance (CUS_BALANCE); en caso contrario se incorpora en la base
+                de datos con toda la información requerida para esto.
+            </li>
+            <li>
+                Se desplegará un mensaje con el valor a devolver.
+            </li>
+        </ul>
+        <br><br>
+
+        <h4><b>Propiedades ACID de las transacciones.</b></h4><br>
+        <b>•Atomicidad:</b> es la propiedad que asegura que la operación se ha realizado o no, y por lo tanto ante un
+        fallo del sistema no puede quedar a medias.
+        Se dice que una operación es atómica cuando es imposible para otra parte de un sistema encontrar pasos
+        intermedios. Si esta operación consiste en una serie de pasos,
+        todos ellos ocurren o ninguno. Por ejemplo, en el caso de una transacción bancaria o se ejecuta tanto el
+        depósito y la deducción o ninguna acción es realizada.
+        <br><br>
+        <b>•Consistencia:</b> Integridad. Es la propiedad que asegura que sólo se empieza aquello que se puede acabar.
+        Por lo tanto se ejecutan aquellas operaciones
+        que no van a romper las reglas y directrices de integridad de la base de datos. La propiedad de consistencia
+        sostiene que cualquier transacción llevará a la base de datos
+        desde un estado válido a otro también válido. "La Integridad de la Base de Datos nos permite asegurar que los
+        datos son exactos y consistentes, es decir que estén siempre intactos,
+        sean siempre los esperados y que de ninguna manera cambien ni se deformen. De esta manera podemos garantizar que
+        la información que se presenta al usuario será siempre la misma."
+        <br><br>
+        <b>•Aislamiento:</b> es la propiedad que asegura que una operación no puede afectar a otras. Esto asegura que la
+        realización de dos transacciones sobre la misma información
+        sean independientes y no generen ningún tipo de error. Esta propiedad define cómo y cuándo los cambios
+        producidos por una operación se hacen visibles para las demás operaciones concurrentes.
+        <br><br>
+        <b>•Durabilidad:</b> Persistencia. Es la propiedad que asegura que una vez realizada la operación, ésta
+        persistirá y no se podrá deshacer aunque falle el sistema y que de esta forma los datos sobrevivan de alguna
+        manera.
+        Cumpliendo estos 4 requisitos un sistema gestor de bases de datos puede ser considerado ACID Compliant.
+        <br><br>
+
+        <b>Actividad a realizarse por cada estudiante.</b>
+    </div>
+    <!--/Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

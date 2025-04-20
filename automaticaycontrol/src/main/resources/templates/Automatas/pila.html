@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Autómatas de Pila</strong></h1></div>
+    <div class="container py-5">
+        Un autómata de pila es un tipo de autómata que hace uso de una memoria adicional (pila) en la cual puede almacenar
+        las ocurrencias de los símbolos que entran al autómata. Tiene un comportamiento similar al de los otros autómatas en
+        cuanto a que el siguiente estado depende del estado actual y el símbolo en su entrada, además de información
+        adicional específica para este tipo de autómatas. Esta información adicional se refiere a que también se tiene en
+        cuenta el símbolo que se encuentra en el tope de la pila. Además del cambio de estado, el autómata también cambia la
+        cinta de la pila ya sea apilando o desapilando.<br>
+        <b>Definición. </b>Un autómata de pila es una 7-tupla M = (Q, ∑, 𝛤, ∆, q<sub>0</sub>, F, z<sub>0</sub>) donde
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_1.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        En un autómata de pila, para que una regla de transición produzca un cambio de estado, debe conocer el estado actual
+        (q), el símbolo de entrada actual (σ) y la cima de la pila (ϒ). De este modo, ∆ se define por medio de ternas de la
+        forma (q, σ, ϒ), donde q es un estado de Q, σ es un símbolo de ∆ U {λ} y ϒ ϵ 𝛤.<br>
+        La relación ∆ puede ser definida como ∆ ⊆ Q X (∑ U λ) X 𝛤 →P(Q X 𝛤 *) <br><br>
+        Al definir ∆ de esta forma, se fuerza a que ∆ deba considerar un símbolo de la pila en todos sus movimientos, es
+        decir, no es posible ningún movimiento si la pila está vacía. Por esta razón, se supone que la pila inicialmente
+        contiene algún símbolo z<sub>0</sub> que es su símbolo inicial.<br><br>
+
+        <b>Lenguaje aceptado por un autómata de pila.</b> <br>
+        El lenguaje aceptado por un autómata de pila se puede definir de dos formas diferentes o equivalentes:
+        <ol type="1">
+            <li>De forma análoga a los autómatas finitos, es decir, el lenguaje aceptado es el conjunto de entradas que
+                hacen que el autómata llegue a un estado final.<br>
+                <i>
+                    <p style="text-align: center;">(M)={w∈Σ/(q0, w, z0) →* (p, λ, ϒ),p∈F}</p>
+                </i>
+            </li>
+            <li>
+                El lenguaje está formado por el conjunto de entradas que vacían la pila. En este caso se dice que es un
+                autómata de pila vacía. Para esta definición el conjunto F es irrelevante y se puede considerar F = Ф
+            </li>
+        </ol>
+        Dado un lenguaje independiente del contexto, siempre es posible encontrar un autómata de pila con estados
+        finales y un autómata de pila vacía que reconozca a dicho lenguaje.<br>
+        <br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p><br>
+        Construir un autómata de pila con estados finales para el lenguaje<br>
+        <p style="text-align: center;">L={0<sup>n</sup> 1<sup>n</sup>/ n ≥ 0} generado por la GIC <br>
+            S → 0S1| λ </p>
+        La estrategia a seguir será la siguiente: mientras se procesan los primeros caracteres de la cadena (que deberán ser
+        0’s), estos se almacenan en la pila. Cuando se llega a la segunda mitad de la cadena y comienzan a llegar 1’s, se
+        pasa a otro estado cuya misión será eliminar un 0 de la pila por cada 1 que se procese. Cuando se termine de
+        procesar la cadena, la pila deberá estar vacía (en realidad solo almacenará el símbolo inicial de la pila
+        z<sub>0</sub>).<br>
+        <br>El AP se define como: Q ={q<sub>0</sub>, q<sub>1</sub>, q<sub>2</sub> }, ∑ ={0, 1} Γ ={z<sub>0</sub>, 0} F
+        ={q<sub>0</sub>}<br>
+        Y la función de transición se define como:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_2.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        ∆(q<sub>1</sub>, 0, 0) = {( q<sub>1</sub>, 00)} en el estado q<sub>1</sub> se añaden caracteres a la pila<br>
+        ∆(q<sub>2</sub>, 1, 0) = {( q<sub>2</sub>, λ)} en el estado q<sub>2</sub> se eliminan caracteres de la pila<br>
+        ∆(q<sub>2</sub>, λ, z<sub>0</sub>) = {( q<sub>0</sub>, λ)} en este caso el estado inicial también es estado final
+        debido a que λ ϵ L<br>
+        Cualquier situación que no haya sido definida indicará un error. Por ejemplo, si la cadena comienza con 1 el
+        autómata detectará el error pues nótese que la función de transición no está definida para la situación
+        (q<sub>0</sub>, 1,
+        z<sub>0</sub>).<br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p>
+        Autómata de pila vacía para el lenguaje: L={w2w<sup>-1</sup>/ w ∈ (0+1)<sup>*</sup> } generado por la gramática<br>
+        <p style="text-align: center;">S → 0S0|1S1|2</p>
+        La estrategia será: cuando se está procesando la primera mitad de la cadena (antes de recibir el 2), los caracteres
+        se almacenan en la pila. Cuando comienza a llegar la segunda mitad de la cadena, cada caractér debe coincidir con el
+        que está en la cima de la pila, si es así se borra la cima y se continúa el proceso. Cuando termine de procesar la
+        cadena, la pila debe estar vacía.<br><br>
+        El AP se define como: Q ={q<sub>0</sub>, q<sub>1</sub> }, ∑ ={0, 1, 2} Γ ={z<sub>0</sub>, 0, 1} <br>
+        La función de transferencia será:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_3.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p>
+        Autómata de pila vacía para el lenguaje: L={ww<sup>-1</sup>/ w ∈ (0+1)<sup>*</sup> } generado por la gramática<br>
+        <p style="text-align: center;">S → 0S0|1S1| λ</p>
+        En este caso no se podrá construir un AP determinista ya que no es posible conocer cuál es el punto medio de la
+        cadena, momento en el que sería necesario cambiar de estado. Cada vez que lleguen dos símbolos iguales seguidos,
+        cabe la posibilidad de que se esté en el centro de la cadena por lo que habrá que considerar el hecho de que el
+        autómata pueda cambiar de estado. La estrategia será similar a la del ejemplo anterior .<br>
+        El AP se define como: Q ={q<sub>0</sub>, q<sub>1</sub> }, ∑ ={0, 1}, Γ ={z<sub>0</sub>, 0, 1} <br>
+        La función de transferencia será:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_4.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        ∆( q<sub>0</sub>, 0, 0) = {( q<sub>0</sub>, 00), ( q<sub>1</sub>, λ)}<br>
+        Hay dos posibilidades, considerando o no haber llegado al centro de la cadena<br>
+        ∆( q<sub>0</sub>, 1, 1) = {( q<sub>0</sub>, 11) , ( q<sub>1</sub>, λ)}
+        Lo mismo que el caso anterior. <br>
+        ∆( q<sub>1</sub>, λ, z_0) = (q<sub>1</sub>, λ) la pila queda vacía.<br>
+
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Supóngase que se quiere construir un autómata de pila no
+        determinista que acepte el lenguaje L={w ∈{a,b}<sup>*</sup> | w contiene la misma cantidad de <i>aes</i> que de
+        <i>bes</i>}<br>
+        Se debe contar el número de ocurrencias de <i>aes</i> y de <i>bes</i>. Esto puede realizarse introduciendo símbolos
+        en la pila
+        cuando se lee algún caractér de entrada y extrayéndolo cuando se lee otro.<br>
+        Sea M el AP dado por: Q ={q<sub>1</sub>, q<sub>2</sub> }, ∑ ={a,b}, Γ ={A,B,Z} F ={q<sub>2</sub> }
+        y la regla de transición ∆ dada por
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_5.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        En otras palabras, si el símbolo en el tope de la pila es el mismo de entrada, entonces apila. Si el símbolo es
+        diferente, desapila.<br><br>
+        Para procesar la palabra <i>abba</i>, M realiza los siguientes movimientos.
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_6.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        y el AP para en el estado de aceptación q<sub>2</sub>. Luego el <i>abba</i> está en L(M).<br><br>
+
+        <p style="color: rgb(163, 8, 8);"><b>Ejercicios.</b></p>
+        Construir un autómata de pila vacía para los siguientes lenguajes definidos sobre el alfabeto ∑ ={a, b, c, 0, 1}
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/pila_7.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+    </div>
+
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

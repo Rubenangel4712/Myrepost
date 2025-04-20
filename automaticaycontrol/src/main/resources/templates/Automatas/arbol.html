@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easiercomp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg border-bottom fixed-top">
+        <div class="container">
+            <div id="logo" onload="imag()"></div>
+            <a class="navbar-brand" href="/" style="color: white">&nbspEasiercomp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link bg-dark" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  bg-dark" href="/contact">Contact</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('admin')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav me-3" sec:authorize="hasRole('client')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/">Home</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a href="/register" class="btn btn-outline-primary me-2">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-light">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><br><br>
+    <h1></h1>
+    <!--/Navbar-->
+    <marquee>Bienvenido al website del ingeniero Ruben@ngel. Este sitio está construido con la finalidad de intercambiar conocimientos y experiencias
+        con quienes tengo o alguna vez tube la oportunidad de compartir en el ámbito académico desde mi posición de docente. Espero que aceptes mi invitación y te registres. La información solicitada
+        es solo con el fin de poderte brindar una buena experiencia mientras estés en el sitio. ¡¡Éxitos!!</marquee>
+    <!--Cards-->
+    <div id="mimenu" onload="menu()"></div>
+    <!--/Cards-->
+    <!--Content-->
+    <div class="card card-body"  style="text-align: center; background-color: lightgray"><h1><strong>Árboles de derivación y análisis sintáctico</strong></h1></div>
+    <div class="container py-5">
+        Un árbol de derivación representando una producción, resulta determinante pues, además de indicar su estructura,
+        también ayuda a entender su significado. Por esta razón, en los mecanismos para reconocer lenguajes independientes
+        del contexto (LIC), no es suficiente con indicar si una determinada cadena pertenece o no al lenguaje, sino que
+        también es muy importante que el reconocedor construya el árbol de derivación de dicha cadena.
+        Cada nodo interno del árbol será un símbolo no terminal de la gramática, mientras que las hojas serán los símbolos
+        terminales. Una producción como A → X<sub>1</sub>…X<sub>n</sub> se representará como un árbol cuyo nodo padre es A y
+        sus hijos los
+        símbolos X<sub>1</sub>…X<sub>n</sub>.<br><br>
+        Si en un paso de la construcción del árbol se aplica una producción al símbolo no terminal que está situado más a la
+        izquierda del árbol, se dice que es una derivación por la izquierda. La misma definición se aplica a la derivación
+        por la derecha.<br>
+        El árbol de una derivación S ⇒<sup>*</sup> w, w ∈ ∑<sup>*</sup>, en una GIC, es un árbol con raíz que se forma de la
+        siguiente manera:
+
+        <ol type="1">
+            <li>La raíz está etiquetada con el símbolo inicial S.</li>
+            <li>Cada nodo interior está etiquetado con un no terminal. </li>
+            <li>Cada hoja está etiquetada con un símbolo terminal o λ.</li>
+            <li>Si en la derivación se utiliza la producción A → s<sub>1</sub>s<sub>2</sub>…s<sub>k</sub>, donde
+                s<sub>i</sub> ∈ (V U ∑)*, el nodo A tiene k descendientes inmediatos:
+                s<sub>1</sub>s<sub>2</sub>…s<sub>k</sub> escritos de izquierda a derecha. </li>
+        </ol>
+
+        De esta forma, las hojas del árbol de derivación de S ⇒<sup>*</sup> <i>w</i> son precisamente los símbolos de la
+        cadena <i>w</i>, leídos
+        de izquierda a derecha y, posiblemente, algunos λs.
+        La búsqueda de un árbol de derivación para una cadena <i>w</i> ∈ ∑<sup>*</sup> se denomina análisis sintáctico de
+        <i>w</i>. Los árboles de
+        derivación también se suelen llamar árboles sintácticos o árboles de análisis sintáctico.
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Sea G la gramática:<br>
+        <pre>
+                           S → AB|AaB
+                           A → aA|a
+                           B  → bBa|b
+                       </pre>
+        El árbol de derivación para <br>
+        S → AB → AbBa → abBa → abba es:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbola.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        Este también es el árbol para la derivación S → AB → aB → abBa → abba<br>
+        <br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Sea G la gramática:
+
+        <pre>
+                       S → BAa
+                       A → bBC | a
+                       B  → bB | b | λ
+                       C  → aB | aa
+                       </pre>
+        El árbol de derivación para <br>
+        S → BAa → bAa → bbBCa → bbbCa → bbbaBa → bbbaa es:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbolb.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        <p style="color: rgb(163, 8, 8);"><b>Ejercicios.</b></p> Sea G la gramática:
+
+        <pre>
+                           S → aS | AaB
+                           A → aA | a
+                           B  → bBbB | b
+                       </pre>
+        Encontrar una derivación para la cadena aaaabbbb y hallar el árbol.
+        <p style="color: rgb(163, 8, 8);"><b>Ejercicios.</b></p> Sea G la gramática:
+        <pre>
+                           S → ABC | BaC | aB
+                           A → Aa | a
+                           B  → BAB | bab
+                           C  → cC | λ
+                       </pre>
+        Encontrar derivaciones de las cadenas <i>w1=abab,w2=babacc,w3=ababababc</i><br><br>
+        <b>Ambigüedad.</b> <br>
+        Una gramática es ambigua cuando es posible construir dos o más árboles de derivación diferentes para una misma
+        palabra.<br><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Supóngase el alfabeto ∑ = {0, 1, +, *, (, )}. (* significa el
+        producto).<br>
+        Una gramática en este alfabeto puede ser:<br>
+        <pre>
+                       S → S + S | S * S | (S) | 0S | 1S | 0 | 1
+
+                       La cadena 1 + 1 * 0 tiene dos derivaciones diferentes:
+                       S → S + S → 1 + S → 1 + S * S → 1 + 1 * S → 1 + 1 * 0
+                       S → S * S → S + S * S → 1 + S * S → 1 + 1 * S → 1 + 1 * 0
+                       Los árboles de derivación correspondientes a estas derivaciones son:
+                       </pre>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbolc.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        Esta ambigüedad puede ser manejada introduciendo paréntesis, sin embargo esto puede volverse complicado por la
+        excesiva cantidad de estos que se puede presentar. En el siguiente ejemplo se muestra otra forma de enfrentar con
+        este problema.<br><br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> (Otra versión del ejemplo anterior)<br>
+        Supóngase la gramática G<sub>o</sub>:<br>
+        <pre>
+                       ∑<sub>T</sub> ={id,cte,(,),+,-,*,/} (Símbolos terminales)
+                       ∑<sub>N</sub> ={≤expre>,≤op>} (Símbolos no terminales)
+                                     S = ≤expre> (Símbolo inicial)
+                       </pre>
+        Las reglas de producción:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbold.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        Es fácil demostrar que esta gramática es ambigua construyendo dos árboles diferentes para generar la misma
+        expresión, concretamente: id + cte * id
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbole.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        A pesar de que ambos árboles generan la misma expresión, los resultados serían diferentes si no se impone una
+        prelación en los operadores.<br>
+        Para resolver esta ambigüedad precisamente se hace esto: imponer prelación en los operadores.
+        En este caso se definen nuevos símbolos creando una nueva gramática G1:<br>
+        <pre>
+                           ≤termino> y ≤op - adt> : operadores aditivos suma y resta.
+                           ≤factor> y ≤op - mult> : operadores multiplicación y división.
+                       </pre>
+        G1:
+        <pre>
+                           ∑_T  ={id,cte,(,),+,-,*,/}    (Símbolos terminales)
+                           ∑_N  ={≤expre>,≤termino>,≤factor>,≤op-adt>,≤op-mult>}    (Símbolos no terminales)
+                           S = ≤expre>   (Símbolo inicial)
+                   </pre>
+        Las reglas de producción:
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbolf.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        Esta nueva gramática tendría el único árbol de derivación siguiente.
+
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/arbolg.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        Este nuevo árbol representa la expresión id+cte*id obligando a que el producto se efectúe primero.<br><br>
+        <h3>Tipos de gramáticas.</h3>
+        <ul>
+            <li>Gramáticas de tipo 0. No tienen restricciones. También se llaman gramáticas no restringidas o gramáticas con
+                estructura de frase en razón de su origen lingüístico.</li>
+            <li>Gramáticas de tipo 1. Las producciones son de la forma <i>u<sub>1</sub>Au<sub>2</sub></i> →
+                <i>v<sub>1</sub>wv<sub>2</sub></i>, donde <i>A</i> es una variable y <i>w</i> ≠ λ.
+                También se
+                llaman gramáticas sensibles al contexto o gramáticas contextuales.
+            </li>
+            <li>Gramáticas de tipo 2. Las producciones son de la forma <i>A → w</i> donde <i>A</i> es una variable. También
+                se llaman
+                gramáticas independientes del contexto (GIC) o gramáticas no contextuales.</li>
+            <li>Gramáticas de tipo 3. Las producciones son de la forma <i>A → a</i> o de la forma <i>A → aB</i>, donde
+                <i>A</i> y <i>B</i> son variables
+                y a es un símbolo terminal. También se llaman gramáticas regulares.
+            </li>
+        </ul>
+        Se dice que un lenguaje es de tipo <i>i</i> si es generado por una gramática del mismo tipo. Esta clasificación de
+        lenguajes se conoce como la jerarquía de Chomsky y fue introducida por Noam Chomsky en 1956.<br><br>
+
+        <h5>Gramáticas para lenguajes de programación.</h5>
+        La sintaxis para la gramática de los lenguajes de programación usualmente se representa por medio de GICs. En tales
+        casos se dice que el lenguaje está en la forma Backus-Naur o, simplemente en la forma BNF.
+        <br>
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Gramática para generar números reales sin signo. Las variables
+        aparecen encerradas entre los símbolos <.> y
+        ≤real> es la variable inicial de la gramática. El alfabeto de terminales es {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ., +,
+        -, E}. En términos de los lenguajes de programación, a los terminales también se les denomina componentes
+        léxicos, lexemas o tokens.
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/gr1.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        Esta gramática genera expresiones como 47.236, 321.25E+35, 0.8E9 y 0.8E+9. No se generan expresiones como .325,
+        E125, 42.5E ni 0.1E+
+        <p style="color: darkgreen;"><b>Ejemplo.</b></p> Gramática para generar los identificadores en lenguajes de
+        programación, es decir, cadenas cuyo primer
+        símbolo es una letra que va seguida de letras y/o dígitos. Las variables aparecen encerradas entre los símbolos
+        <.> e ≤identificador> es la variable inicial de la gramática. La variable ≤lsds> representa “letras o dígitos”.
+        Los terminales en esta gramática son las letras minúsculas o mayúsculas y los dígitos.
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/gr2.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+
+        <p style="color: rgb(163, 8, 8);"><b>Ejercicios.</b></p>
+        <ol type="1">
+            <li>Hallar la derivación y el árbol para generar la variable: Valor32ac</li>
+            <li> Hacer derivaciones y árboles para las cadenas 235.101E+25 y 0.01E-12.
+            </li>
+            <li>Supóngase la siguiente gramática.</li>
+        </ol>
+        <div class="card container p-4 w-30" style="margin-top: 1%; align-items: center;">
+            <div class="main-header ">
+                <img src="/images/imAt/gr3.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+            </div>
+        </div><br>
+        El alfabeto de terminales de esta gramática es {0, 1, +, *, (, )}.
+        Hacer derivaciones y árboles de derivación para las cadenas:
+        <ol type="1">
+            <li>10 + 101*10</li>
+            <li>(101+10*10)</li>
+            <li>(10+111)*(100+10*101+1111)</li>
+        </ol>
+        <h5>Gramáticas para lenguajes naturales. (Libro)</h5>
+    </div>
+    <!--Content-->
+</div>
+<!--Content-->
+<script type="text/javascript" src="/js/menus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
